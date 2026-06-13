@@ -28,10 +28,10 @@ Implement a server-rendered home page with these internal arrays:
 
 ```tsx
 const benefits = [
-  { title: "Free GPS setup", nepali: "GPS जडान निःशुल्क", body: "We handle the setup cost so Mayur can start without upfront risk." },
-  { title: "Government-ready features", nepali: "सरकारी आवश्यकताका ४ सुविधा", body: "The proposal covers the required GPS feature set without overloading owners with technical work." },
-  { title: "Passenger app included", nepali: "यात्रु एपमा मयुर बस", body: "Riders can see Mayur buses in the app and choose to wait instead of switching options." },
-  { title: "Hosted by us", nepali: "होस्टिङ र सञ्चालन हामीबाट", body: "We build, host, and operate the app so Mayur does not need a software team." },
+  { title: "GPS setup", nepali: "GPS जडान निःशुल्क", body: "Installation handled by us." },
+  { title: "Required feature package", nepali: "सरकारी आवश्यकताका ४ सुविधा", body: "Covers the 4 mandated GPS features." },
+  { title: "Rider app listing", nepali: "यात्रु एपमा मयुर बस", body: "Mayur appears in the app." },
+  { title: "Hosted operation", nepali: "होस्टिङ सधैं निःशुल्क", body: "Server, updates, and app operation handled by us." },
 ]
 ```
 
@@ -153,4 +153,3 @@ git commit -m "fix: polish proposal site QA issues"
 ```
 
 Expected: only source files changed by QA are staged.
-

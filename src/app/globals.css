@@ -443,6 +443,11 @@ body {
   gap: 14px;
 }
 
+.app-points {
+  margin-top: 42px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .mini-stat {
   display: flex;
   align-items: center;
@@ -563,6 +568,10 @@ body {
 
   .benefit-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .app-points {
+    grid-template-columns: 1fr;
   }
 
   .value-panel {

@@ -10,7 +10,11 @@ The primary audience is Mayur Yatayat operators and owners. They may not want to
 
 ## Core Offer
 
-We will provide the government-ready GPS setup for Mayur buses for free, including the four mandated GPS-related features. We will also build, host, and operate the passenger-facing app ourselves. Mayur buses will be available to passengers in the app for free, with the goal of increasing bus visibility and passenger traffic.
+We will provide the government-ready GPS setup for Mayur buses for free, including the four mandated GPS-related features. We will also build, host, and operate the passenger-facing app ourselves for free. Mayur buses will be available to passengers in the app for free, with the goal of increasing bus visibility and passenger traffic.
+
+The free promise is not only for the beginning or a limited pilot. Setup, hosting, app operation, and Mayur visibility inside the app should be presented as the standing model. State this once clearly, then avoid repeating the same promise in later sections.
+
+Later versions of the app can include more bus routes, making the product more useful for daily riders while preserving Mayur's free visibility.
 
 Because the exact government feature labels still need confirmation, the first implementation will use a clear non-final label: "4 government-required GPS features". The site will not claim specific regulatory wording until those names are confirmed.
 
@@ -24,11 +28,11 @@ The page should use large, confident scroll sections:
 2. What Mayur gets: GPS setup, required features, passenger app listing, hosting and operation.
 3. Why it matters: passengers are more likely to wait for buses they can see.
 4. App preview: a polished phone mockup showing buses inside the consumer app.
-5. Simple pilot close: start with a few buses, prove value first.
+5. Simple rollout close: start with a few buses, then expand as more routes join the app later.
 
 ## Copy Style
 
-Use English and Nepali together. English should be precise for the proposal. Nepali should make the benefit instantly understandable. Keep each section short. Avoid technical clutter, investor jargon, and dashboard language.
+Use English and Nepali together. English should be precise for the proposal. Nepali should make the benefit instantly understandable. Keep each section short. Avoid technical clutter, investor jargon, dashboard language, and repeated claims.
 
 ## Visual Direction
 
@@ -45,4 +49,3 @@ Global CSS should be updated to match the new theme, page motion, and responsive
 ## Verification
 
 Run lint and build after implementation. Restart localhost and verify the page loads. Inspect the page at desktop and mobile widths for overlapping text, awkward scroll sections, and broken app mockup layout.
-

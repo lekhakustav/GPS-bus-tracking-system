@@ -16,27 +16,27 @@ import {
 
 const benefits = [
   {
-    title: "Free GPS setup",
+    title: "GPS setup",
     nepali: "GPS जडान निःशुल्क",
-    body: "We handle the setup cost so Mayur can start without upfront risk.",
+    body: "Installation handled by us.",
     icon: Signal,
   },
   {
-    title: "Government-ready features",
+    title: "Required feature package",
     nepali: "सरकारी आवश्यकताका ४ सुविधा",
-    body: "The proposal covers the required GPS feature set without adding technical work for owners.",
+    body: "Covers the 4 mandated GPS features.",
     icon: ShieldCheck,
   },
   {
-    title: "Passenger app included",
+    title: "Rider app listing",
     nepali: "यात्रु एपमा मयुर बस",
-    body: "Riders can see Mayur buses in the app and choose to wait instead of switching options.",
+    body: "Mayur appears in the app.",
     icon: Phone,
   },
   {
-    title: "Hosted by us",
-    nepali: "होस्टिङ र सञ्चालन हामीबाट",
-    body: "We build, host, and operate the app so Mayur does not need a software team.",
+    title: "Hosted operation",
+    nepali: "होस्टिङ सधैं निःशुल्क",
+    body: "Server, updates, and app operation handled by us.",
     icon: Cloud,
   },
 ];
@@ -69,10 +69,10 @@ const appBuses = [
 ];
 
 const rollout = [
-  "Start with a few Mayur buses",
-  "Install the GPS setup and required feature package",
-  "List those buses inside the passenger app",
-  "Watch passenger response before wider rollout",
+  "Choose the first buses",
+  "Install the required GPS package",
+  "Publish them in the rider app",
+  "Add more Mayur buses as the route network grows",
 ];
 
 function AppPreview() {
@@ -188,7 +188,7 @@ export default function Home() {
             </span>
             Mayur GPS Proposal
           </div>
-          <a href="#pilot" className="nav-cta">
+          <a href="#rollout" className="nav-cta">
             Start small
             <ArrowRight size={15} />
           </a>
@@ -200,10 +200,10 @@ export default function Home() {
               <Sparkles size={16} />
               Proposal for Mayur Yatayat
             </div>
-            <h1>Free government-ready GPS for Mayur Yatayat.</h1>
-            <p className="nepali-lede">मयुर यातायातका बसहरूलाई निःशुल्क GPS सेटअप र यात्रु एपमा दृश्यता।</p>
+            <h1>Always-free GPS and rider app for Mayur Yatayat.</h1>
+            <p className="nepali-lede">मयुर बसका लागि सधैं निःशुल्क GPS र यात्रु एप।</p>
             <p className="hero-subcopy">
-              We install the GPS setup with the 4 government-required features, build the passenger app, host it ourselves, and make Mayur buses visible to riders for free.
+              Includes the required GPS package, hosted operation, and passenger visibility.
             </p>
             <div className="hero-actions">
               <a href="#offer" className="primary-button">
@@ -212,7 +212,7 @@ export default function Home() {
               </a>
               <span className="proof-pill">
                 <Check size={15} />
-                No upfront cost for the pilot
+                No software team needed
               </span>
             </div>
           </div>
@@ -226,8 +226,8 @@ export default function Home() {
       <section id="offer" className="content-section offer-section">
         <div className="section-heading">
           <p className="section-kicker">The full setup</p>
-          <h2>Mayur gets the hardware, the app, and the hosting without taking on software risk.</h2>
-          <p>मयुरले GPS, यात्रु एप, र सञ्चालन पाउँछ। सुरुवातमा खर्च र प्रविधिको बोझ हामी लिन्छौं।</p>
+          <h2>What Mayur gets.</h2>
+          <p>चार कुरा। एउटै जिम्मेवारी।</p>
         </div>
 
         <div className="benefit-grid">
@@ -262,7 +262,7 @@ export default function Home() {
         <div className="value-panel">
           <div className="value-line">
             <CircleDot size={18} />
-            <span>Find nearby Mayur buses</span>
+            <span>Know which Mayur bus is coming</span>
           </div>
           <div className="value-line">
             <CircleDot size={18} />
@@ -278,34 +278,31 @@ export default function Home() {
       <section className="content-section app-section">
         <div className="section-heading compact">
           <p className="section-kicker">Consumer experience</p>
-          <h2>The app view stays simple: nearby buses, ETAs, and routes.</h2>
-          <p>यो यात्रुको लागि हो, अपरेटरको लागि जटिल ड्यासबोर्ड होइन।</p>
+          <h2>The app can grow into a wider route network.</h2>
+          <p>पछि अरू बस रुट थपिँदा एप यात्रुका लागि अझ उपयोगी हुन्छ।</p>
         </div>
 
-        <div className="app-showcase">
-          <AppPreview />
-          <div className="showcase-copy">
-            <div className="mini-stat">
-              <UsersRound size={20} />
-              <span>More visibility can become more passenger traffic.</span>
-            </div>
-            <div className="mini-stat">
-              <Route size={20} />
-              <span>Mayur routes become easier to discover from daily stops.</span>
-            </div>
-            <div className="mini-stat">
-              <ShieldCheck size={20} />
-              <span>The required GPS setup is handled before the app promise is made.</span>
-            </div>
+        <div className="showcase-copy app-points">
+          <div className="mini-stat">
+            <UsersRound size={20} />
+            <span>Riders make decisions at the stop.</span>
+          </div>
+          <div className="mini-stat">
+            <Route size={20} />
+            <span>They compare ETAs and route direction.</span>
+          </div>
+          <div className="mini-stat">
+            <ShieldCheck size={20} />
+            <span>Mayur stays visible as more routes join later.</span>
           </div>
         </div>
       </section>
 
-      <section id="pilot" className="content-section rollout-section">
+      <section id="rollout" className="content-section rollout-section">
         <div className="section-heading compact">
-          <p className="section-kicker">Pilot plan</p>
-          <h2>Start with a few buses. Prove value first.</h2>
-          <p>पहिले सानो पाइलट। नतिजा देखिएपछि मात्र ठूलो विस्तार।</p>
+          <p className="section-kicker">Rollout plan</p>
+          <h2>Add the first buses, then expand.</h2>
+          <p>पहिले केही बस। त्यसपछि मयुरका थप बसहरू।</p>
         </div>
 
         <div className="rollout-list">
@@ -320,10 +317,10 @@ export default function Home() {
 
       <section className="closing-section">
         <p className="section-kicker">The proposal</p>
-        <h2>We pay the setup cost, build the app, and put Mayur buses where passengers can see them.</h2>
-        <p>मयुरको लागि कम जोखिम। यात्रुको लागि सजिलो। बसको लागि बढी दृश्यता।</p>
+        <h2>Give riders a reason to wait for Mayur.</h2>
+        <p>प्रविधि हामी सम्हाल्छौं। मयुरलाई दृश्यता मिल्छ।</p>
         <a href="mailto:hello@example.com" className="primary-button closing-button">
-          Discuss pilot
+          Discuss rollout
           <ArrowRight size={17} />
         </a>
       </section>
