@@ -16,7 +16,7 @@ The free promise is not only for the beginning or a limited pilot. Setup, hostin
 
 Later versions of the app can include more bus routes, making the product more useful for daily riders while preserving Mayur's free visibility.
 
-Because the exact government feature labels still need confirmation, the first implementation will use a clear non-final label: "4 government-required GPS features". The site will not claim specific regulatory wording until those names are confirmed.
+The four GPS features should be named directly: geofencing, overspeed alerts, ignition status, and route tracking. These labels are based on current public reporting on Nepal's draft public-transport technology guidelines.
 
 ## Experience Direction
 
@@ -25,10 +25,10 @@ The site should read as a premium proposal, not a dashboard. It should remove th
 The page should use large, confident scroll sections:
 
 1. Opening offer: "Free government-ready GPS setup for Mayur Yatayat."
-2. What Mayur gets: GPS setup, required features, passenger app listing, hosting and operation.
-3. Why it matters: passengers are more likely to wait for buses they can see.
+2. Four GPS features: geofencing, overspeed alerts, ignition status, and route tracking.
+3. Why it matters: "If riders see the bus, they wait." Keep the Nepali line "बस देखियो भने यात्रु पर्खिन्छन्।"
 4. App preview: a polished phone mockup showing buses inside the consumer app.
-5. Simple rollout close: start with a few buses, then expand as more routes join the app later.
+5. Coverage plan: cover all Mayur Yatayat buses first, then support other bus routes later as part of a long-term one-app route network.
 
 ## Copy Style
 
@@ -41,6 +41,8 @@ Use a minimal, Framer-like look: light background, disciplined typography, subtl
 Use an Apple UI-like text scale rather than oversized landing-page type: roughly 34px+ for the main large title, 28px+ for section titles, and 15-17px for body copy, with readable line heights.
 
 The main product visual should be a phone-style app mockup with a small route surface and moving or listed bus items. This visual exists to show what consumers might see, not to simulate a full tracking system.
+
+Motion should be tasteful and functional: gentle phone drift, animated route flow, subtle section entry, and a simple network-line animation. Avoid loud dashboard animation.
 
 ## Technical Direction
 

@@ -1,40 +1,38 @@
 import {
   BusFront,
   CircleDot,
-  Cloud,
+  Gauge,
   MapPin,
   Navigation,
-  Phone,
+  Power,
   Route,
-  ShieldCheck,
   Signal,
-  UsersRound,
 } from "lucide-react";
 
 const benefits = [
   {
-    title: "GPS setup",
-    nepali: "GPS जडान निःशुल्क",
-    body: "Installation handled by us.",
-    icon: Signal,
+    title: "Geofencing",
+    nepali: "रुट क्षेत्र निगरानी",
+    body: "Know when a bus leaves its allowed route area.",
+    icon: MapPin,
   },
   {
-    title: "Required feature package",
-    nepali: "सरकारी आवश्यकताका ४ सुविधा",
-    body: "Covers the 4 mandated GPS features.",
-    icon: ShieldCheck,
+    title: "Overspeed alerts",
+    nepali: "गति चेतावनी",
+    body: "Flag unsafe speed in real time.",
+    icon: Gauge,
   },
   {
-    title: "Rider app listing",
-    nepali: "यात्रु एपमा मयुर बस",
-    body: "Mayur appears in the app.",
-    icon: Phone,
+    title: "Ignition status",
+    nepali: "इग्निसन स्थिति",
+    body: "See when the vehicle is on or off.",
+    icon: Power,
   },
   {
-    title: "Hosted operation",
-    nepali: "होस्टिङ सधैं निःशुल्क",
-    body: "Server, updates, and app operation handled by us.",
-    icon: Cloud,
+    title: "Route tracking",
+    nepali: "रुट जानकारी",
+    body: "Show route movement and route information.",
+    icon: Route,
   },
 ];
 
@@ -63,13 +61,6 @@ const appBuses = [
     x: "73%",
     y: "32%",
   },
-];
-
-const rollout = [
-  "Choose the first buses",
-  "Install the required GPS package",
-  "Publish them in the rider app",
-  "Add more Mayur buses as the route network grows",
 ];
 
 function AppPreview() {
@@ -209,8 +200,8 @@ export default function Home() {
       <section id="offer" className="content-section offer-section">
         <div className="section-heading">
           <p className="section-kicker">The full setup</p>
-          <h2>What Mayur gets.</h2>
-          <p>चार कुरा। एउटै जिम्मेवारी।</p>
+          <h2>The four GPS features.</h2>
+          <p>सरकारी आवश्यकताका ४ GPS सुविधा।</p>
         </div>
 
         <div className="benefit-grid">
@@ -233,10 +224,7 @@ export default function Home() {
       <section className="content-section split-section">
         <div>
           <p className="section-kicker">Why this matters</p>
-          <h2>Passengers wait for buses they can see.</h2>
-          <p className="section-body">
-            Riders need one answer: is the bus coming?
-          </p>
+          <h2>If riders see the bus, they wait.</h2>
           <p className="nepali-support">
             बस देखियो भने यात्रु पर्खिन्छन्।
           </p>
@@ -245,56 +233,29 @@ export default function Home() {
         <div className="value-panel">
           <div className="value-line">
             <CircleDot size={18} />
-            <span>Know which Mayur bus is coming</span>
+            <span>More daily customers</span>
           </div>
           <div className="value-line">
             <CircleDot size={18} />
-            <span>See route and arrival time</span>
+            <span>More seats filled</span>
           </div>
           <div className="value-line">
             <CircleDot size={18} />
-            <span>Choose Mayur with more confidence</span>
+            <span>More people choosing Mayur</span>
           </div>
         </div>
       </section>
 
       <section className="content-section app-section">
         <div className="section-heading compact">
-          <p className="section-kicker">Consumer experience</p>
-          <h2>The app can grow into a wider route network.</h2>
-          <p>पछि अरू बस रुट थपिँदा एप यात्रुका लागि अझ उपयोगी हुन्छ।</p>
+          <p className="section-kicker">Coverage plan</p>
+          <h2>All Mayur buses first. More routes later.</h2>
+          <p>हाम्रो लक्ष्य एउटै एपमा धेरै बस रुट राख्नु हो।</p>
         </div>
-
-        <div className="showcase-copy app-points">
-          <div className="mini-stat">
-            <UsersRound size={20} />
-            <span>Riders make decisions at the stop.</span>
-          </div>
-          <div className="mini-stat">
-            <Route size={20} />
-            <span>They compare ETAs and route direction.</span>
-          </div>
-          <div className="mini-stat">
-            <ShieldCheck size={20} />
-            <span>Mayur stays visible as more routes join later.</span>
-          </div>
-        </div>
-      </section>
-
-      <section id="rollout" className="content-section rollout-section">
-        <div className="section-heading compact">
-          <p className="section-kicker">Rollout plan</p>
-          <h2>Add the first buses, then expand.</h2>
-          <p>पहिले केही बस। त्यसपछि मयुरका थप बसहरू।</p>
-        </div>
-
-        <div className="rollout-list">
-          {rollout.map((step, index) => (
-            <div key={step} className="rollout-step">
-              <span>{index + 1}</span>
-              <p>{step}</p>
-            </div>
-          ))}
+        <div className="network-line" aria-hidden="true">
+          <span>Mayur Yatayat</span>
+          <span>Other bus routes</span>
+          <span>One rider app</span>
         </div>
       </section>
 

@@ -81,6 +81,7 @@ body {
 
 .hero-copy {
   max-width: 760px;
+  animation: fade-up 700ms ease both;
 }
 
 .eyebrow,
@@ -146,6 +147,7 @@ body {
 .hero-visual {
   display: flex;
   justify-content: center;
+  animation: fade-up 850ms 120ms ease both;
 }
 
 .phone-shell {
@@ -155,6 +157,7 @@ body {
   background: #171713;
   box-shadow: 0 30px 70px rgba(14, 37, 58, 0.2), 0 8px 20px rgba(20, 20, 18, 0.18);
   transform: translateZ(0);
+  animation: phone-drift 7s ease-in-out infinite;
 }
 
 .phone-screen {
@@ -327,6 +330,19 @@ body {
   border-radius: 8px;
   background: rgba(255, 250, 241, 0.72);
   padding: 22px;
+  animation: fade-up 650ms ease both;
+}
+
+.benefit-card:nth-child(2) {
+  animation-delay: 80ms;
+}
+
+.benefit-card:nth-child(3) {
+  animation-delay: 160ms;
+}
+
+.benefit-card:nth-child(4) {
+  animation-delay: 240ms;
 }
 
 .benefit-icon {
@@ -391,6 +407,42 @@ body {
 
 .app-section {
   padding-top: 48px;
+}
+
+.network-line {
+  position: relative;
+  margin-top: 42px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.network-line::before {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 50%;
+  height: 2px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, transparent, rgba(30, 78, 66, 0.7), transparent);
+  background-size: 200% 100%;
+  animation: network-flow 5s linear infinite;
+}
+
+.network-line span {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  min-height: 74px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 250, 241, 0.9);
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 800;
+  text-align: center;
 }
 
 .app-showcase {
@@ -510,6 +562,43 @@ body {
   }
 }
 
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes phone-drift {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes network-flow {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 @media (max-width: 980px) {
   .hero-grid,
   .split-section,
@@ -531,6 +620,22 @@ body {
 
   .app-points {
     grid-template-columns: 1fr;
+  }
+
+  .network-line {
+    grid-template-columns: 1fr;
+  }
+
+  .network-line::before {
+    left: 50%;
+    right: auto;
+    top: 8%;
+    bottom: 8%;
+    height: auto;
+    width: 2px;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, transparent, rgba(30, 78, 66, 0.7), transparent);
+    background-size: 100% 200%;
   }
 
   .value-panel {

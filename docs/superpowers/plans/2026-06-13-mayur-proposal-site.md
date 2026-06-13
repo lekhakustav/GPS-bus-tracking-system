@@ -28,10 +28,10 @@ Implement a server-rendered home page with these internal arrays:
 
 ```tsx
 const benefits = [
-  { title: "GPS setup", nepali: "GPS जडान निःशुल्क", body: "Installation handled by us." },
-  { title: "Required feature package", nepali: "सरकारी आवश्यकताका ४ सुविधा", body: "Covers the 4 mandated GPS features." },
-  { title: "Rider app listing", nepali: "यात्रु एपमा मयुर बस", body: "Mayur appears in the app." },
-  { title: "Hosted operation", nepali: "होस्टिङ सधैं निःशुल्क", body: "Server, updates, and app operation handled by us." },
+  { title: "Geofencing", nepali: "रुट क्षेत्र निगरानी", body: "Know when a bus leaves its allowed route area." },
+  { title: "Overspeed alerts", nepali: "गति चेतावनी", body: "Flag unsafe speed in real time." },
+  { title: "Ignition status", nepali: "इग्निसन स्थिति", body: "See when the vehicle is on or off." },
+  { title: "Route tracking", nepali: "रुट जानकारी", body: "Show route movement and route information." },
 ]
 ```
 
