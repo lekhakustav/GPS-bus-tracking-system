@@ -15,28 +15,24 @@ const benefits = [
     nepali: "रुट क्षेत्र निगरानी",
     body: "Know when a bus leaves its allowed route area.",
     icon: MapPin,
-    visual: "geo",
   },
   {
     title: "Overspeed alerts",
     nepali: "गति चेतावनी",
     body: "Flag unsafe speed in real time.",
     icon: Gauge,
-    visual: "speed",
   },
   {
     title: "Ignition status",
     nepali: "इग्निसन स्थिति",
     body: "See when the vehicle is on or off.",
     icon: Power,
-    visual: "ignition",
   },
   {
     title: "Route tracking",
     nepali: "रुट जानकारी",
     body: "Show route movement and route information.",
     icon: Route,
-    visual: "route",
   },
 ];
 
@@ -178,45 +174,6 @@ function AppPreview() {
   );
 }
 
-function FeatureSignal({ type }: { type: string }) {
-  if (type === "speed") {
-    return (
-      <div className="feature-visual speed-visual" aria-hidden="true">
-        <span className="speed-arc" />
-        <span className="speed-needle" />
-        <span className="speed-threshold" />
-      </div>
-    );
-  }
-
-  if (type === "ignition") {
-    return (
-      <div className="feature-visual ignition-visual" aria-hidden="true">
-        <span className="ignition-core" />
-        <span className="ignition-ring" />
-      </div>
-    );
-  }
-
-  if (type === "route") {
-    return (
-      <div className="feature-visual route-visual" aria-hidden="true">
-        <span className="route-node route-node-a" />
-        <span className="route-node route-node-b" />
-        <span className="route-node route-node-c" />
-        <span className="route-mini-line" />
-      </div>
-    );
-  }
-
-  return (
-    <div className="feature-visual geo-visual" aria-hidden="true">
-      <span className="geo-ring" />
-      <span className="geo-bus" />
-    </div>
-  );
-}
-
 export default function Home() {
   return (
     <main className="proposal-page">
@@ -259,7 +216,6 @@ export default function Home() {
                 <div className="benefit-icon">
                   <Icon size={21} />
                 </div>
-                <FeatureSignal type={item.visual} />
                 <h3>{item.title}</h3>
                 <p className="nepali-card">{item.nepali}</p>
                 <p>{item.body}</p>
@@ -305,7 +261,6 @@ export default function Home() {
       </section>
 
       <section className="closing-section">
-        <p className="section-kicker">The proposal</p>
         <h2>Give passengers a reason to wait for Mayur.</h2>
         <p>प्रविधि हामी सम्हाल्छौं। मयुरलाई दृश्यता मिल्छ।</p>
         <div className="origin-note">
