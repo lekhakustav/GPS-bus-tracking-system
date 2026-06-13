@@ -313,6 +313,9 @@ export default function Home() {
         <p className="section-kicker">The proposal</p>
         <h2>Give passengers a reason to wait for Mayur.</h2>
         <p>प्रविधि हामी सम्हाल्छौं। मयुरलाई दृश्यता मिल्छ।</p>
+        <div className="origin-note">
+          हाम्रो टोलीमा धुलिखेलका विद्यार्थीहरू छन्। उनीहरूलाई यस्तै एप चाहिएको थियो, त्यसैले हामीले यो बनायौं।
+        </div>
       </section>
     </main>
   );

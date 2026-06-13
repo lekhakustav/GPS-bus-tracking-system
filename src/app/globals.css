@@ -618,6 +618,20 @@ body {
   max-width: 740px;
 }
 
+.origin-note {
+  margin: 34px auto 0;
+  max-width: 720px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 250, 241, 0.74);
+  padding: 22px 24px;
+  color: var(--green);
+  font-size: clamp(17px, 1.8vw, 22px);
+  font-weight: 750;
+  line-height: 1.45;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
 @keyframes route-flow {
   to {
     stroke-dashoffset: -180;
