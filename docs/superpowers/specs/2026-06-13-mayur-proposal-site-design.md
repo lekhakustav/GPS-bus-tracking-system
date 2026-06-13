@@ -12,7 +12,7 @@ The primary audience is Mayur Yatayat operators and owners. They may not want to
 
 We will provide the government-ready GPS setup for Mayur buses for free, including the four mandated GPS-related features. We will also build, host, and operate the passenger-facing app ourselves for free. Mayur buses will be available to passengers in the app for free, with the goal of increasing bus visibility and passenger traffic.
 
-The free promise is not only for the beginning or a limited pilot. Setup, hosting, app operation, and Mayur visibility inside the app should be presented as the standing model. State this once clearly, then avoid repeating the same promise in later sections.
+The free promise is not only for the beginning or a limited pilot. Setup, hosting, app operation, and Mayur visibility inside the app should be presented as the standing model. State this once as "Forever free", then avoid repeating the same promise in later sections.
 
 Later versions of the app can include more bus routes, making the product more useful for daily riders while preserving Mayur's free visibility.
 
@@ -32,11 +32,13 @@ The page should use large, confident scroll sections:
 
 ## Copy Style
 
-Use English and Nepali together. English should be precise for the proposal. Nepali should make the benefit instantly understandable. Keep each section short. Avoid technical clutter, investor jargon, dashboard language, and repeated claims.
+Use English and Nepali together. English should be precise for the proposal. Nepali should make the benefit instantly understandable. Keep each section short. Use simple sentences. Avoid technical clutter, investor jargon, dashboard language, repeated claims, and CTA buttons.
 
 ## Visual Direction
 
 Use a minimal, Framer-like look: light background, disciplined typography, subtle motion, large whitespace, crisp product surfaces, and restrained color. The design should avoid the current dark-orange dashboard theme and avoid a large map as the hero.
+
+Use an Apple UI-like text scale rather than oversized landing-page type: roughly 34px+ for the main large title, 28px+ for section titles, and 15-17px for body copy, with readable line heights.
 
 The main product visual should be a phone-style app mockup with a small route surface and moving or listed bus items. This visual exists to show what consumers might see, not to simulate a full tracking system.
 

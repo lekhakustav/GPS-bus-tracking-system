@@ -1,7 +1,5 @@
 import {
-  ArrowRight,
   BusFront,
-  Check,
   CircleDot,
   Cloud,
   MapPin,
@@ -10,7 +8,6 @@ import {
   Route,
   ShieldCheck,
   Signal,
-  Sparkles,
   UsersRound,
 } from "lucide-react";
 
@@ -188,33 +185,19 @@ export default function Home() {
             </span>
             Mayur GPS Proposal
           </div>
-          <a href="#rollout" className="nav-cta">
-            Start small
-            <ArrowRight size={15} />
-          </a>
         </nav>
 
         <div className="hero-grid">
           <div className="hero-copy">
             <div className="eyebrow">
-              <Sparkles size={16} />
               Proposal for Mayur Yatayat
             </div>
-            <h1>Always-free GPS and rider app for Mayur Yatayat.</h1>
+            <h1>Forever free GPS and rider app.</h1>
             <p className="nepali-lede">मयुर बसका लागि सधैं निःशुल्क GPS र यात्रु एप।</p>
             <p className="hero-subcopy">
-              Includes the required GPS package, hosted operation, and passenger visibility.
+              We install it. We host it. Riders see Mayur buses in the app.
             </p>
-            <div className="hero-actions">
-              <a href="#offer" className="primary-button">
-                See the offer
-                <ArrowRight size={17} />
-              </a>
-              <span className="proof-pill">
-                <Check size={15} />
-                No software team needed
-              </span>
-            </div>
+            <p className="offer-note">No software team needed.</p>
           </div>
 
           <div className="hero-visual">
@@ -252,10 +235,10 @@ export default function Home() {
           <p className="section-kicker">Why this matters</p>
           <h2>Passengers wait for buses they can see.</h2>
           <p className="section-body">
-            Today, a rider often does not know if the bus is close, late, or already gone. A simple passenger app changes that decision at the stop.
+            Riders need one answer: is the bus coming?
           </p>
           <p className="nepali-support">
-            यात्रुले बस आइरहेको देखेपछि पर्खिने सम्भावना बढ्छ। यही दृश्यताले मयुर बसमा ट्राफिक बढाउन सक्छ।
+            बस देखियो भने यात्रु पर्खिन्छन्।
           </p>
         </div>
 
@@ -319,10 +302,6 @@ export default function Home() {
         <p className="section-kicker">The proposal</p>
         <h2>Give riders a reason to wait for Mayur.</h2>
         <p>प्रविधि हामी सम्हाल्छौं। मयुरलाई दृश्यता मिल्छ।</p>
-        <a href="mailto:hello@example.com" className="primary-button closing-button">
-          Discuss rollout
-          <ArrowRight size={17} />
-        </a>
       </section>
     </main>
   );
