@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { Language, translations } from "@/data/translations";
 
 type TranslationContextType = {
@@ -12,20 +12,18 @@ type TranslationContextType = {
 const TranslationContext = createContext<TranslationContextType | undefined>(undefined);
 
 export const TranslationProvider = ({ children }: { children: React.ReactNode }) => {
-  const [language, setLanguage] = useState<Language>("en");
-
-  // Load preferred language from localStorage if client-side
-  useEffect(() => {
-    const saved = localStorage.getItem("preferred_lang") as Language;
-    if (saved && (saved === "en" || saved === "ne")) {
-      setLanguage(saved);
-    }
-  }, []);
+  const [language, setLanguage] = useState<Language>(() => {
+    if (typeof window === "undefined") return "en";
+    const saved = localStorage.getItem("preferred_lang");
+    return saved === "en" || saved === "ne" ? saved : "en";
+  });
 
   const toggleLanguage = () => {
     setLanguage((prev) => {
       const next = prev === "en" ? "ne" : "en";
-      localStorage.setItem("preferred_lang", next);
+      if (typeof window !== "undefined") {
+        localStorage.setItem("preferred_lang", next);
+      }
       return next;
     });
   };
