@@ -81,7 +81,6 @@ body {
 
 .hero-copy {
   max-width: 760px;
-  animation: fade-up 700ms ease both;
 }
 
 .eyebrow,
@@ -147,7 +146,6 @@ body {
 .hero-visual {
   display: flex;
   justify-content: center;
-  animation: fade-up 850ms 120ms ease both;
 }
 
 .phone-shell {
@@ -330,19 +328,6 @@ body {
   border-radius: 8px;
   background: rgba(255, 250, 241, 0.72);
   padding: 22px;
-  animation: fade-up 650ms ease both;
-}
-
-.benefit-card:nth-child(2) {
-  animation-delay: 80ms;
-}
-
-.benefit-card:nth-child(3) {
-  animation-delay: 160ms;
-}
-
-.benefit-card:nth-child(4) {
-  animation-delay: 240ms;
 }
 
 .benefit-icon {
@@ -559,17 +544,6 @@ body {
   }
   50% {
     transform: translate(-50%, -50%) translateY(-6px);
-  }
-}
-
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 
