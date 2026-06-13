@@ -14,7 +14,7 @@ We will provide the government-ready GPS setup for Mayur buses for free, includi
 
 The free promise is not only for the beginning or a limited pilot. Setup, hosting, app operation, and Mayur visibility inside the app should be presented as the standing model. State this once as "Forever free", then avoid repeating the same promise in later sections.
 
-Later versions of the app can include more bus routes, making the product more useful for daily riders while preserving Mayur's free visibility.
+Later versions of the app can include more bus routes, making the product more useful for daily passengers while preserving Mayur's free visibility.
 
 The four GPS features should be named directly: geofencing, overspeed alerts, ignition status, and route tracking. These labels are based on current public reporting on Nepal's draft public-transport technology guidelines.
 
@@ -26,7 +26,7 @@ The page should use large, confident scroll sections:
 
 1. Opening offer: "Free government-ready GPS setup for Mayur Yatayat."
 2. Four GPS features: geofencing, overspeed alerts, ignition status, and route tracking.
-3. Why it matters: "If riders see the bus, they wait." Keep the Nepali line "बस देखियो भने यात्रु पर्खिन्छन्।"
+3. Why it matters: "If passengers see the bus, they wait." Keep the Nepali line "बस देखियो भने यात्रु पर्खिन्छन्।"
 4. App preview: a polished phone mockup showing buses inside the consumer app.
 5. Coverage plan: cover all Mayur Yatayat buses first, then support other bus routes later as part of a long-term one-app route network.
 
@@ -42,7 +42,7 @@ Use an Apple UI-like text scale rather than oversized landing-page type: roughly
 
 The main product visual should be a phone-style app mockup with a small route surface and moving or listed bus items. This visual exists to show what consumers might see, not to simulate a full tracking system.
 
-Motion should be tasteful and functional: gentle phone drift, animated route flow, subtle section entry, and a simple network-line animation. Avoid loud dashboard animation.
+Motion should be tasteful and functional: gentle phone drift, animated route flow, subtle section entry, and small GPS feature-card instrument animations. Avoid loud dashboard animation.
 
 ## Polish Layer
 
@@ -50,7 +50,7 @@ Use Apple-like system typography rather than imported display fonts. The goal is
 
 Surface detail should be visible but quiet. Use soft paper-like backgrounds, faint grid/noise texture, translucent cards, inset highlights, and realistic phone material. These details should make the site feel built by a technical design team without making it busy.
 
-Movement should explain the product. The phone route can show a moving signal and route sparkle. Each GPS feature card can have a small technical instrument animation: geofence pulse, speed needle, ignition pulse, and route nodes. The coverage plan can use a slow network pulse. All animation must remain subtle and must respect reduced-motion settings.
+Movement should explain the product. Each GPS feature card can have a small technical instrument animation: geofence pulse, speed needle, ignition pulse, and route nodes. Avoid moving-dot embellishments inside the phone preview or coverage plan. All animation must remain subtle and must respect reduced-motion settings.
 
 ## Technical Direction
 

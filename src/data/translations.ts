@@ -55,7 +55,7 @@ export const translations = {
     appMockOnRoute: "On Route",
 
     // Section 5: Benefits
-    benTitle: "This Is Designed To Bring More Riders",
+    benTitle: "This Is Designed To Bring More Passengers",
     benCard1Title: "More Passenger Confidence",
     benCard1Desc: "People are more likely to wait when they can see the bus coming.",
     benCard2Title: "More Route Visibility",
@@ -66,7 +66,7 @@ export const translations = {
 
     // Section 6: Final CTA
     ctaTitle: "Let's Put Mayur Buses On The Map",
-    ctaSub: "Free GPS setup. Passenger-facing app visibility. A better way for riders to find your buses.",
+    ctaSub: "Free GPS setup. Passenger-facing app visibility. A better way for passengers to find your buses.",
     ctaPrimary: "Start With A Few Buses",
     ctaSecondary: "Contact Team",
     ctaFooter: "No upfront payment from bus owners. We prove value first."

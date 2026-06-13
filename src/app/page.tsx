@@ -140,7 +140,6 @@ function AppPreview() {
               <span className="bus-label">{bus.eta}</span>
             </div>
           ))}
-          <span className="signal-runner" />
         </div>
 
         <div className="phone-sheet">
@@ -236,10 +235,10 @@ export default function Home() {
             <div className="eyebrow">
               Proposal for Mayur Yatayat
             </div>
-            <h1>Forever free GPS and rider app.</h1>
+            <h1>Forever free GPS and passenger app.</h1>
             <p className="nepali-lede">मयुर बसका लागि सधैं निःशुल्क GPS र यात्रु एप।</p>
             <p className="hero-subcopy">
-              We install it. We host it. Riders see Mayur buses in the app.
+              We install it. We host it. Passengers see Mayur buses in the app.
             </p>
             <p className="offer-note">No software team needed.</p>
           </div>
@@ -278,7 +277,7 @@ export default function Home() {
       <section className="content-section split-section">
         <div>
           <p className="section-kicker">Why this matters</p>
-          <h2>If riders see the bus, they wait.</h2>
+          <h2>If passengers see the bus, they wait.</h2>
           <p className="nepali-support">
             बस देखियो भने यात्रु पर्खिन्छन्।
           </p>
@@ -305,21 +304,14 @@ export default function Home() {
           <p className="section-kicker">Coverage plan</p>
           <h2>
             All Mayur buses first.
-            <span className="headline-break">More routes later.</span>
           </h2>
-          <p>हाम्रो लक्ष्य एउटै एपमा धेरै बस रुट राख्नु हो।</p>
-        </div>
-        <div className="network-line" aria-hidden="true">
-          <span className="network-pulse" />
-          <span>Mayur Yatayat</span>
-          <span>Other bus routes</span>
-          <span>One rider app</span>
+          <p>We will add more buses to the passenger app over time.</p>
         </div>
       </section>
 
       <section className="closing-section">
         <p className="section-kicker">The proposal</p>
-        <h2>Give riders a reason to wait for Mayur.</h2>
+        <h2>Give passengers a reason to wait for Mayur.</h2>
         <p>प्रविधि हामी सम्हाल्छौं। मयुरलाई दृश्यता मिल्छ।</p>
       </section>
     </main>
