@@ -15,24 +15,28 @@ const benefits = [
     nepali: "रुट क्षेत्र निगरानी",
     body: "Know when a bus leaves its allowed route area.",
     icon: MapPin,
+    visual: "geo",
   },
   {
     title: "Overspeed alerts",
     nepali: "गति चेतावनी",
     body: "Flag unsafe speed in real time.",
     icon: Gauge,
+    visual: "speed",
   },
   {
     title: "Ignition status",
     nepali: "इग्निसन स्थिति",
     body: "See when the vehicle is on or off.",
     icon: Power,
+    visual: "ignition",
   },
   {
     title: "Route tracking",
     nepali: "रुट जानकारी",
     body: "Show route movement and route information.",
     icon: Route,
+    visual: "route",
   },
 ];
 
@@ -99,6 +103,15 @@ function AppPreview() {
               className="route-flow"
             />
             <path
+              d="M14 238 C78 214 98 152 153 144 C213 135 222 69 302 51"
+              fill="none"
+              stroke="rgba(255, 250, 241, 0.95)"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeDasharray="1 18"
+              className="route-spark"
+            />
+            <path
               d="M33 78 C101 120 151 79 221 118 C259 139 273 186 304 214"
               fill="none"
               stroke="rgba(14, 37, 58, 0.12)"
@@ -127,6 +140,7 @@ function AppPreview() {
               <span className="bus-label">{bus.eta}</span>
             </div>
           ))}
+          <span className="signal-runner" />
         </div>
 
         <div className="phone-sheet">
@@ -161,6 +175,45 @@ function AppPreview() {
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+function FeatureSignal({ type }: { type: string }) {
+  if (type === "speed") {
+    return (
+      <div className="feature-visual speed-visual" aria-hidden="true">
+        <span className="speed-arc" />
+        <span className="speed-needle" />
+        <span className="speed-threshold" />
+      </div>
+    );
+  }
+
+  if (type === "ignition") {
+    return (
+      <div className="feature-visual ignition-visual" aria-hidden="true">
+        <span className="ignition-core" />
+        <span className="ignition-ring" />
+      </div>
+    );
+  }
+
+  if (type === "route") {
+    return (
+      <div className="feature-visual route-visual" aria-hidden="true">
+        <span className="route-node route-node-a" />
+        <span className="route-node route-node-b" />
+        <span className="route-node route-node-c" />
+        <span className="route-mini-line" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="feature-visual geo-visual" aria-hidden="true">
+      <span className="geo-ring" />
+      <span className="geo-bus" />
     </div>
   );
 }
@@ -212,6 +265,7 @@ export default function Home() {
                 <div className="benefit-icon">
                   <Icon size={21} />
                 </div>
+                <FeatureSignal type={item.visual} />
                 <h3>{item.title}</h3>
                 <p className="nepali-card">{item.nepali}</p>
                 <p>{item.body}</p>
@@ -249,10 +303,14 @@ export default function Home() {
       <section className="content-section app-section">
         <div className="section-heading compact">
           <p className="section-kicker">Coverage plan</p>
-          <h2>All Mayur buses first. More routes later.</h2>
+          <h2>
+            All Mayur buses first.
+            <span className="headline-break">More routes later.</span>
+          </h2>
           <p>हाम्रो लक्ष्य एउटै एपमा धेरै बस रुट राख्नु हो।</p>
         </div>
         <div className="network-line" aria-hidden="true">
+          <span className="network-pulse" />
           <span>Mayur Yatayat</span>
           <span>Other bus routes</span>
           <span>One rider app</span>

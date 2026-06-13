@@ -44,6 +44,14 @@ The main product visual should be a phone-style app mockup with a small route su
 
 Motion should be tasteful and functional: gentle phone drift, animated route flow, subtle section entry, and a simple network-line animation. Avoid loud dashboard animation.
 
+## Polish Layer
+
+Use Apple-like system typography rather than imported display fonts. The goal is familiar, calm interface polish: tight negative tracking on large titles, readable body copy, and restrained Nepali support text.
+
+Surface detail should be visible but quiet. Use soft paper-like backgrounds, faint grid/noise texture, translucent cards, inset highlights, and realistic phone material. These details should make the site feel built by a technical design team without making it busy.
+
+Movement should explain the product. The phone route can show a moving signal and route sparkle. Each GPS feature card can have a small technical instrument animation: geofence pulse, speed needle, ignition pulse, and route nodes. The coverage plan can use a slow network pulse. All animation must remain subtle and must respect reduced-motion settings.
+
 ## Technical Direction
 
 Use the existing Next.js App Router and Tailwind setup. Replace `src/app/page.tsx` with a mostly static proposal page. Remove imports and state tied to `TrackerMap`, simulated fleet telemetry, and operational playback. Keep dependencies unchanged unless implementation proves a dependency can be safely removed later.

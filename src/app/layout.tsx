@@ -1,18 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const outfit = Outfit({
-  variable: "--font-outfit",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Mayur Yatayat GPS Proposal",
@@ -37,10 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${outfit.variable} h-full antialiased scroll-smooth`}
-    >
+    <html lang="en" className="h-full antialiased scroll-smooth">
       <body className="min-h-full flex flex-col bg-brand-bg text-brand-text font-sans">{children}</body>
     </html>
   );
