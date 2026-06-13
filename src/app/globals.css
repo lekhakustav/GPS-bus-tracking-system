@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-bg: #1A1A2E;
+  --color-brand-card: rgba(26, 26, 46, 0.7);
+  --color-brand-accent: #FF6B35;
+  --color-brand-accent-hover: #E0531F;
+  --color-brand-text: #F8FAFC;
+  --color-brand-muted: #94A3B8;
+  --color-brand-border: rgba(255, 255, 255, 0.08);
+  
+  --font-sans: var(--font-inter), sans-serif;
+  --font-display: var(--font-outfit), sans-serif;
+
+  --animate-gps-pulse: gps-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-dash-offset: dash-offset 30s linear infinite;
+
+  @keyframes gps-pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.8;
+      box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.7);
+    }
+    50% {
+      transform: scale(1.15);
+      opacity: 1;
+      box-shadow: 0 0 0 12px rgba(255, 107, 53, 0);
+    }
+  }
+
+  @keyframes dash-offset {
+    to {
+      stroke-dashoffset: -1000;
+    }
+  }
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html, body {
+  background-color: #1A1A2E;
+  color: #F8FAFC;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism helpers */
+.glass-card {
+  background: rgba(26, 26, 46, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-hover:hover {
+  background: rgba(26, 26, 46, 0.85);
+  border-color: rgba(255, 107, 53, 0.3);
+  box-shadow: 0 12px 40px 0 rgba(255, 107, 53, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Custom premium scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1A1A2E;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 107, 53, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 107, 53, 0.5);
+}
+
+/* Hide scrollbar for layout */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Smooth gliding transition for Leaflet markers */
+.custom-bus-icon {
+  transition: left 2s linear, top 2s linear;
+}
