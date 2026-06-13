@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Outfit } from "next/font/google";
-import { TranslationProvider } from "@/components/TranslationContext";
-import "leaflet/dist/leaflet.css";
+import { Inter, Noto_Sans_Devanagari, Outfit } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -16,18 +14,24 @@ const outfit = Outfit({
   display: "swap",
 });
 
+const notoSansDevanagari = Noto_Sans_Devanagari({
+  variable: "--font-devanagari",
+  subsets: ["devanagari"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "Mayur GPS Platform | Free GPS & Visibility For Mayur Buses",
-  description: "Get the GPS hardware and bus tracking system worth Rs. 5,000 for free. Help passengers see your bus live in our app and increase passenger traffic with zero upfront costs.",
-  keywords: "Mayur Yatayat, GPS Tracking, Nepal Bus GPS, Kathmandu Banepa Bus GPS, Bus Owners GPS System",
-  authors: [{ name: "Mayur GPS Platform Team" }],
+  title: "Mayur Yatayat GPS Proposal",
+  description: "A free government-ready GPS setup and passenger app proposal for Mayur Yatayat.",
+  keywords: "Mayur Yatayat, GPS proposal, Nepal bus GPS, passenger app, bus tracking",
+  authors: [{ name: "Mayur GPS Proposal Team" }],
   icons: {
     icon: "/favicon.ico",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1A1A2E",
+  themeColor: "#f7f4ee",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -41,11 +45,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${outfit.variable} h-full antialiased scroll-smooth`}
+      className={`${inter.variable} ${outfit.variable} ${notoSansDevanagari.variable} h-full antialiased scroll-smooth`}
     >
-      <body className="min-h-full flex flex-col bg-brand-bg text-brand-text font-sans">
-        <TranslationProvider>{children}</TranslationProvider>
-      </body>
+      <body className="min-h-full flex flex-col bg-brand-bg text-brand-text font-sans">{children}</body>
     </html>
   );
 }
