@@ -232,15 +232,11 @@ export default function Home() {
 
         <div className="hero-grid">
           <div className="hero-copy">
-            <div className="eyebrow">
-              Proposal for Mayur Yatayat
-            </div>
             <h1>Forever free GPS and passenger app.</h1>
             <p className="nepali-lede">मयुर बसका लागि सधैं निःशुल्क GPS र यात्रु एप।</p>
             <p className="hero-subcopy">
               We install it. We host it. Passengers see Mayur buses in the app.
             </p>
-            <p className="offer-note">No software team needed.</p>
           </div>
 
           <div className="hero-visual">
@@ -251,9 +247,8 @@ export default function Home() {
 
       <section id="offer" className="content-section offer-section">
         <div className="section-heading">
-          <p className="section-kicker">The full setup</p>
           <h2>The four GPS features.</h2>
-          <p>सरकारी आवश्यकताका ४ GPS सुविधा।</p>
+          <p>सरकारी आवश्यकताका ४ GPS सुविधा हामी तपाईंलाई निःशुल्क उपलब्ध गराउँछौं।</p>
         </div>
 
         <div className="benefit-grid">
@@ -276,7 +271,6 @@ export default function Home() {
 
       <section className="content-section split-section">
         <div>
-          <p className="section-kicker">Why this matters</p>
           <h2>If passengers see the bus, they wait.</h2>
           <p className="nepali-support">
             बस देखियो भने यात्रु पर्खिन्छन्।
@@ -301,11 +295,12 @@ export default function Home() {
 
       <section className="content-section app-section">
         <div className="section-heading compact">
-          <p className="section-kicker">Coverage plan</p>
           <h2>
             All Mayur buses first.
           </h2>
-          <p>We will add more buses to the passenger app over time.</p>
+          <p>
+            We will add more buses to the passenger app over time. We will make it the only app passengers need to open to see the route.
+          </p>
         </div>
       </section>
 
