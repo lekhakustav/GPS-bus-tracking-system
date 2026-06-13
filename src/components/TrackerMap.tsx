@@ -292,7 +292,7 @@ export default function TrackerMap({
         selectedTrailRef.current = trailLine;
       }
     }
-  }, [buses, selectedBusId, geofences, routes, isPlaybackPaused, onSelectBus, onSelectStation]);
+  }, [buses, selectedBusId, geofences, routes, stations, isPlaybackPaused, onSelectBus, onSelectStation]);
 
   // Handle map centering and auto-following when a bus is selected and "Follow Bus Mode" is ON
   useEffect(() => {

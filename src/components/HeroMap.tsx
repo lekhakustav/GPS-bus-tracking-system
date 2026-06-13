@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Compass, Navigation, Info } from "lucide-react";
+import { Compass, Navigation } from "lucide-react";
 import { useTranslation } from "@/components/TranslationContext";
 
 interface Bus {
@@ -14,18 +14,17 @@ interface Bus {
   angle: number;
 }
 
-export default function HeroMap() {
-  const { t, language } = useTranslation();
-  const [activeBusIndex, setActiveBusIndex] = useState(0);
+// Coordinate data for route Kathmandu -> Koteshwor -> Bhaktapur -> Banepa.
+const routePoints = [
+  { name: "Kathmandu", x: 60, y: 220, labelPos: "bottom" },
+  { name: "Koteshwor", x: 160, y: 200, labelPos: "top" },
+  { name: "Bhaktapur", x: 320, y: 150, labelPos: "bottom" },
+  { name: "Banepa", x: 440, y: 110, labelPos: "top" },
+];
 
-  // Coordinate data for route Kathmandu -> Koteshwor -> Bhaktapur -> Banepa
-  // Map dimensions are 500x320
-  const routePoints = [
-    { name: "Kathmandu", x: 60, y: 220, labelPos: "bottom" },
-    { name: "Koteshwor", x: 160, y: 200, labelPos: "top" },
-    { name: "Bhaktapur", x: 320, y: 150, labelPos: "bottom" },
-    { name: "Banepa", x: 440, y: 110, labelPos: "top" },
-  ];
+export default function HeroMap() {
+  const { language } = useTranslation();
+  const [activeBusIndex, setActiveBusIndex] = useState(0);
 
   // Helper to translate route names
   const getRouteLabel = (name: string) => {
