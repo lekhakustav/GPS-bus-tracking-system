@@ -9,7 +9,7 @@
   --color-brand-muted: #6f6a61;
   --color-brand-border: rgba(30, 78, 66, 0.14);
 
-  --font-sans: var(--font-inter), var(--font-devanagari), sans-serif;
+  --font-sans: var(--font-inter), "Noto Sans Devanagari", "Kohinoor Devanagari", sans-serif;
   --font-display: var(--font-outfit), sans-serif;
 }
 
@@ -39,7 +39,7 @@ body {
 }
 
 body {
-  font-family: var(--font-inter), var(--font-devanagari), sans-serif;
+  font-family: var(--font-inter), "Noto Sans Devanagari", "Kohinoor Devanagari", sans-serif;
 }
 
 ::selection {
