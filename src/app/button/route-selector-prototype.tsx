@@ -1,759 +1,330 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  BusFront,
-  Check,
-  LocateFixed,
-  MapPin,
-  MousePointer2,
-  Route,
-  Sparkles,
-} from "lucide-react";
+import { BusFront, Check, LocateFixed } from "lucide-react";
+import { type CSSProperties, useMemo, useState } from "react";
 import styles from "./route-selector.module.css";
+
+type SelectorMode = "from" | "to";
+type TileShape = "rect" | "stepNE" | "stepNW" | "stepSE" | "stepSW" | "notch";
+type TileSize = "compact" | "standard" | "wide" | "hub";
 
 type Place = {
   id: string;
   name: string;
   nepali: string;
-  lat: number;
-  lng: number;
-  weight: number;
-  tone: "core" | "north" | "east" | "south" | "west";
+  x: number;
+  y: number;
   neighbors: string[];
 };
 
 type BusRoute = {
   id: string;
   name: string;
-  service: string;
   cadence: string;
-  tone: string;
   stops: string[];
 };
 
-type SelectorMode = "current" | "destination";
-
-const valleyBounds = {
-  minLat: 27.58,
-  maxLat: 27.8,
-  minLng: 85.18,
-  maxLng: 85.55,
-};
-
-const layoutNudges: Record<string, { x: number; y: number }> = {
-  balaju: { x: -5, y: -4 },
-  gongabu: { x: -1, y: -7 },
-  samakhusi: { x: 0, y: -3 },
-  maharajgunj: { x: 5, y: -8 },
-  lazimpat: { x: -3, y: -3 },
-  sorhakhutte: { x: -8, y: -1 },
-  jamal: { x: -6, y: 1 },
-  ratnapark: { x: -7, y: 5 },
-  putalisadak: { x: 2, y: 2 },
-  naxal: { x: 4, y: 2 },
-  chabahil: { x: 13, y: -8 },
-  gaushala: { x: 11, y: 5 },
-  bouddha: { x: 15, y: -6 },
-  jorpati: { x: 18, y: -2 },
-  sinamangal: { x: 10, y: 8 },
-  newbaneshwor: { x: 4, y: 8 },
-  koteshwor: { x: 8, y: 12 },
-  thimi: { x: 9, y: 4 },
-  bhaktapur: { x: 12, y: 5 },
-  suryabinayak: { x: 15, y: 14 },
-  tripureshwor: { x: -6, y: 10 },
-  kalanki: { x: -13, y: 9 },
-  balkhu: { x: -8, y: 16 },
-  jawalakhel: { x: -5, y: 22 },
-  lagankhel: { x: 0, y: 24 },
-  satdobato: { x: 0, y: 29 },
-  gwarko: { x: 7, y: 24 },
-  kirtipur: { x: -14, y: 17 },
-};
-
 const places: Place[] = [
-  {
-    id: "balaju",
-    name: "Balaju",
-    nepali: "बालाजु",
-    lat: 27.735,
-    lng: 85.303,
-    weight: 5,
-    tone: "north",
-    neighbors: ["gongabu", "samakhusi", "sorhakhutte"],
-  },
-  {
-    id: "gongabu",
-    name: "Gongabu",
-    nepali: "गोंगबु",
-    lat: 27.736,
-    lng: 85.315,
-    weight: 6,
-    tone: "north",
-    neighbors: ["balaju", "samakhusi", "maharajgunj"],
-  },
-  {
-    id: "samakhusi",
-    name: "Samakhusi",
-    nepali: "सामाखुसी",
-    lat: 27.728,
-    lng: 85.321,
-    weight: 4,
-    tone: "north",
-    neighbors: ["gongabu", "lazimpat", "sorhakhutte"],
-  },
-  {
-    id: "maharajgunj",
-    name: "Maharajgunj",
-    nepali: "महाराजगन्ज",
-    lat: 27.739,
-    lng: 85.343,
-    weight: 6,
-    tone: "north",
-    neighbors: ["gongabu", "lazimpat", "chabahil"],
-  },
-  {
-    id: "lazimpat",
-    name: "Lazimpat",
-    nepali: "लाजिम्पाट",
-    lat: 27.721,
-    lng: 85.32,
-    weight: 4,
-    tone: "core",
-    neighbors: ["samakhusi", "maharajgunj", "jamal", "naxal"],
-  },
-  {
-    id: "sorhakhutte",
-    name: "Sorhakhutte",
-    nepali: "सोह्रखुट्टे",
-    lat: 27.719,
-    lng: 85.307,
-    weight: 4,
-    tone: "core",
-    neighbors: ["balaju", "samakhusi", "jamal", "kalanki"],
-  },
-  {
-    id: "jamal",
-    name: "Jamal",
-    nepali: "जमल",
-    lat: 27.708,
-    lng: 85.315,
-    weight: 7,
-    tone: "core",
-    neighbors: ["lazimpat", "ratnapark", "putalisadak", "sorhakhutte"],
-  },
-  {
-    id: "ratnapark",
-    name: "Ratna Park",
-    nepali: "रत्नपार्क",
-    lat: 27.705,
-    lng: 85.315,
-    weight: 9,
-    tone: "core",
-    neighbors: ["jamal", "putalisadak", "tripureshwor", "newbaneshwor"],
-  },
-  {
-    id: "putalisadak",
-    name: "Putalisadak",
-    nepali: "पुतलीसडक",
-    lat: 27.704,
-    lng: 85.325,
-    weight: 6,
-    tone: "core",
-    neighbors: ["jamal", "ratnapark", "naxal", "newbaneshwor"],
-  },
-  {
-    id: "naxal",
-    name: "Naxal",
-    nepali: "नक्साल",
-    lat: 27.712,
-    lng: 85.33,
-    weight: 4,
-    tone: "core",
-    neighbors: ["lazimpat", "putalisadak", "chabahil"],
-  },
-  {
-    id: "chabahil",
-    name: "Chabahil",
-    nepali: "चाबहिल",
-    lat: 27.716,
-    lng: 85.347,
-    weight: 7,
-    tone: "east",
-    neighbors: ["maharajgunj", "naxal", "gaushala", "bouddha"],
-  },
-  {
-    id: "gaushala",
-    name: "Gaushala",
-    nepali: "गौशाला",
-    lat: 27.707,
-    lng: 85.344,
-    weight: 6,
-    tone: "east",
-    neighbors: ["chabahil", "sinamangal", "newbaneshwor"],
-  },
-  {
-    id: "bouddha",
-    name: "Bouddha",
-    nepali: "बौद्ध",
-    lat: 27.721,
-    lng: 85.362,
-    weight: 5,
-    tone: "east",
-    neighbors: ["chabahil", "jorpati"],
-  },
-  {
-    id: "jorpati",
-    name: "Jorpati",
-    nepali: "जोरपाटी",
-    lat: 27.724,
-    lng: 85.381,
-    weight: 4,
-    tone: "east",
-    neighbors: ["bouddha", "sankhu"],
-  },
-  {
-    id: "sankhu",
-    name: "Sankhu",
-    nepali: "साँखु",
-    lat: 27.744,
-    lng: 85.459,
-    weight: 3,
-    tone: "east",
-    neighbors: ["jorpati", "bhaktapur"],
-  },
-  {
-    id: "sinamangal",
-    name: "Sinamangal",
-    nepali: "सिनामंगल",
-    lat: 27.697,
-    lng: 85.349,
-    weight: 4,
-    tone: "east",
-    neighbors: ["gaushala", "koteshwor"],
-  },
-  {
-    id: "newbaneshwor",
-    name: "New Baneshwor",
-    nepali: "नयाँ बानेश्वर",
-    lat: 27.69,
-    lng: 85.334,
-    weight: 8,
-    tone: "core",
-    neighbors: ["putalisadak", "ratnapark", "gaushala", "koteshwor"],
-  },
-  {
-    id: "koteshwor",
-    name: "Koteshwor",
-    nepali: "कोटेश्वर",
-    lat: 27.678,
-    lng: 85.349,
-    weight: 9,
-    tone: "east",
-    neighbors: ["newbaneshwor", "sinamangal", "gwarko", "thimi"],
-  },
-  {
-    id: "thimi",
-    name: "Thimi",
-    nepali: "ठिमी",
-    lat: 27.68,
-    lng: 85.385,
-    weight: 5,
-    tone: "east",
-    neighbors: ["koteshwor", "bhaktapur"],
-  },
-  {
-    id: "bhaktapur",
-    name: "Bhaktapur",
-    nepali: "भक्तपुर",
-    lat: 27.672,
-    lng: 85.429,
-    weight: 7,
-    tone: "east",
-    neighbors: ["thimi", "sankhu", "suryabinayak"],
-  },
-  {
-    id: "suryabinayak",
-    name: "Suryabinayak",
-    nepali: "सूर्यविनायक",
-    lat: 27.665,
-    lng: 85.427,
-    weight: 5,
-    tone: "east",
-    neighbors: ["bhaktapur", "banepa"],
-  },
-  {
-    id: "banepa",
-    name: "Banepa",
-    nepali: "बनेपा",
-    lat: 27.632,
-    lng: 85.522,
-    weight: 5,
-    tone: "east",
-    neighbors: ["suryabinayak"],
-  },
-  {
-    id: "tripureshwor",
-    name: "Tripureshwor",
-    nepali: "त्रिपुरेश्वर",
-    lat: 27.695,
-    lng: 85.315,
-    weight: 5,
-    tone: "core",
-    neighbors: ["ratnapark", "kalanki", "jawalakhel"],
-  },
-  {
-    id: "kalanki",
-    name: "Kalanki",
-    nepali: "कलंकी",
-    lat: 27.693,
-    lng: 85.281,
-    weight: 8,
-    tone: "west",
-    neighbors: ["sorhakhutte", "tripureshwor", "thankot", "kirtipur"],
-  },
-  {
-    id: "thankot",
-    name: "Thankot",
-    nepali: "थानकोट",
-    lat: 27.688,
-    lng: 85.213,
-    weight: 4,
-    tone: "west",
-    neighbors: ["kalanki"],
-  },
-  {
-    id: "kirtipur",
-    name: "Kirtipur",
-    nepali: "कीर्तिपुर",
-    lat: 27.678,
-    lng: 85.284,
-    weight: 5,
-    tone: "west",
-    neighbors: ["kalanki", "balkhu"],
-  },
-  {
-    id: "balkhu",
-    name: "Balkhu",
-    nepali: "बल्खु",
-    lat: 27.682,
-    lng: 85.299,
-    weight: 5,
-    tone: "west",
-    neighbors: ["kirtipur", "jawalakhel", "tripureshwor"],
-  },
-  {
-    id: "jawalakhel",
-    name: "Jawalakhel",
-    nepali: "जावलाखेल",
-    lat: 27.673,
-    lng: 85.318,
-    weight: 6,
-    tone: "south",
-    neighbors: ["balkhu", "lagankhel", "tripureshwor"],
-  },
-  {
-    id: "lagankhel",
-    name: "Lagankhel",
-    nepali: "लगनखेल",
-    lat: 27.666,
-    lng: 85.323,
-    weight: 7,
-    tone: "south",
-    neighbors: ["jawalakhel", "satdobato", "gwarko"],
-  },
-  {
-    id: "satdobato",
-    name: "Satdobato",
-    nepali: "सातदोबाटो",
-    lat: 27.655,
-    lng: 85.324,
-    weight: 6,
-    tone: "south",
-    neighbors: ["lagankhel", "gwarko", "bhaisepati"],
-  },
-  {
-    id: "gwarko",
-    name: "Gwarko",
-    nepali: "ग्वार्को",
-    lat: 27.666,
-    lng: 85.341,
-    weight: 5,
-    tone: "south",
-    neighbors: ["satdobato", "lagankhel", "koteshwor"],
-  },
-  {
-    id: "bhaisepati",
-    name: "Bhaisepati",
-    nepali: "भैंसेपाटी",
-    lat: 27.64,
-    lng: 85.303,
-    weight: 3,
-    tone: "south",
-    neighbors: ["satdobato"],
-  },
+  { id: "gongabu", name: "Gongabu", nepali: "गोंगबु", x: 145, y: 34, neighbors: ["balaju", "samakhusi", "maharajgunj"] },
+  { id: "maharajgunj", name: "Maharajgunj", nepali: "महाराजगन्ज", x: 270, y: 34, neighbors: ["gongabu", "chabahil", "lazimpat"] },
+  { id: "bouddha", name: "Bouddha", nepali: "बौद्ध", x: 455, y: 34, neighbors: ["chabahil", "jorpati"] },
+  { id: "balaju", name: "Balaju", nepali: "बालाजु", x: 24, y: 92, neighbors: ["gongabu", "samakhusi", "sorhakhutte"] },
+  { id: "samakhusi", name: "Samakhusi", nepali: "सामाखुसी", x: 142, y: 92, neighbors: ["gongabu", "balaju", "lazimpat"] },
+  { id: "lazimpat", name: "Lazimpat", nepali: "लाजिम्पाट", x: 270, y: 92, neighbors: ["samakhusi", "maharajgunj", "jamal", "naxal"] },
+  { id: "chabahil", name: "Chabahil", nepali: "चाबहिल", x: 410, y: 92, neighbors: ["maharajgunj", "naxal", "gaushala", "bouddha"] },
+  { id: "jorpati", name: "Jorpati", nepali: "जोरपाटी", x: 548, y: 92, neighbors: ["bouddha", "sankhu"] },
+  { id: "sorhakhutte", name: "Sorhakhutte", nepali: "सोह्रखुट्टे", x: 36, y: 150, neighbors: ["balaju", "jamal", "kalanki"] },
+  { id: "jamal", name: "Jamal", nepali: "जमल", x: 186, y: 150, neighbors: ["sorhakhutte", "lazimpat", "ratnapark"] },
+  { id: "naxal", name: "Naxal", nepali: "नक्साल", x: 286, y: 150, neighbors: ["lazimpat", "putalisadak", "chabahil"] },
+  { id: "gaushala", name: "Gaushala", nepali: "गौशाला", x: 386, y: 150, neighbors: ["chabahil", "sinamangal", "newbaneshwor"] },
+  { id: "sankhu", name: "Sankhu", nepali: "साँखु", x: 520, y: 150, neighbors: ["jorpati", "bhaktapur"] },
+  { id: "ratnapark", name: "Ratna Park", nepali: "रत्नपार्क", x: 116, y: 208, neighbors: ["jamal", "putalisadak", "tripureshwor", "newbaneshwor"] },
+  { id: "putalisadak", name: "Putalisadak", nepali: "पुतलीसडक", x: 262, y: 208, neighbors: ["ratnapark", "naxal", "newbaneshwor"] },
+  { id: "sinamangal", name: "Sinamangal", nepali: "सिनामंगल", x: 426, y: 208, neighbors: ["gaushala", "koteshwor"] },
+  { id: "kalanki", name: "Kalanki", nepali: "कलंकी", x: 16, y: 266, neighbors: ["sorhakhutte", "tripureshwor", "kirtipur"] },
+  { id: "tripureshwor", name: "Tripureshwor", nepali: "त्रिपुरेश्वर", x: 136, y: 266, neighbors: ["ratnapark", "kalanki", "jawalakhel"] },
+  { id: "newbaneshwor", name: "New Baneshwor", nepali: "नयाँ बानेश्वर", x: 290, y: 266, neighbors: ["ratnapark", "putalisadak", "gaushala", "koteshwor"] },
+  { id: "thimi", name: "Thimi", nepali: "ठिमी", x: 448, y: 266, neighbors: ["koteshwor", "bhaktapur"] },
+  { id: "kirtipur", name: "Kirtipur", nepali: "कीर्तिपुर", x: 30, y: 324, neighbors: ["kalanki", "jawalakhel"] },
+  { id: "jawalakhel", name: "Jawalakhel", nepali: "जावलाखेल", x: 150, y: 324, neighbors: ["tripureshwor", "lagankhel", "kirtipur"] },
+  { id: "lagankhel", name: "Lagankhel", nepali: "लगनखेल", x: 288, y: 324, neighbors: ["jawalakhel", "satdobato", "koteshwor"] },
+  { id: "koteshwor", name: "Koteshwor", nepali: "कोटेश्वर", x: 430, y: 324, neighbors: ["newbaneshwor", "lagankhel", "thimi"] },
+  { id: "bhaktapur", name: "Bhaktapur", nepali: "भक्तपुर", x: 570, y: 324, neighbors: ["thimi", "sankhu", "banepa"] },
+  { id: "satdobato", name: "Satdobato", nepali: "सातदोबाटो", x: 318, y: 382, neighbors: ["lagankhel"] },
+  { id: "banepa", name: "Banepa", nepali: "बनेपा", x: 614, y: 382, neighbors: ["bhaktapur"] },
 ];
 
 const routes: BusRoute[] = [
   {
-    id: "r-kalanki-bhaktapur",
-    name: "Kalanki - Ratna Park - Koteshwor - Bhaktapur",
-    service: "Ring-road east connector",
-    cadence: "4-7 min",
-    tone: "#1e4e42",
-    stops: ["kalanki", "tripureshwor", "ratnapark", "newbaneshwor", "koteshwor", "thimi", "bhaktapur"],
-  },
-  {
-    id: "r-gongabu-banepa",
-    name: "Gongabu - Chabahil - Koteshwor - Banepa",
-    service: "North terminal to Araniko Highway",
-    cadence: "8-12 min",
-    tone: "#315f7b",
-    stops: ["gongabu", "maharajgunj", "chabahil", "gaushala", "sinamangal", "koteshwor", "suryabinayak", "banepa"],
-  },
-  {
-    id: "r-ratnapark-lagankhel",
-    name: "Ratna Park - Tripureshwor - Jawalakhel - Lagankhel",
-    service: "Core to Lalitpur spine",
-    cadence: "3-5 min",
-    tone: "#9a6a25",
-    stops: ["ratnapark", "tripureshwor", "jawalakhel", "lagankhel", "satdobato"],
-  },
-  {
-    id: "r-thankot-chabahil",
-    name: "Thankot - Kalanki - Jamal - Chabahil",
-    service: "West gate to Pashupati corridor",
-    cadence: "7-10 min",
-    tone: "#7c4e57",
-    stops: ["thankot", "kalanki", "sorhakhutte", "jamal", "lazimpat", "naxal", "chabahil"],
-  },
-  {
-    id: "r-jamalkoteshwor-sankhu",
-    name: "Jamal - New Baneshwor - Koteshwor - Sankhu",
-    service: "Central city to north-east edge",
-    cadence: "10-15 min",
-    tone: "#3f6651",
+    id: "jamal-bhaktapur",
+    name: "Jamal - Baneshwor - Koteshwor - Bhaktapur",
+    cadence: "10 min",
     stops: ["jamal", "putalisadak", "newbaneshwor", "koteshwor", "thimi", "bhaktapur", "sankhu"],
   },
   {
-    id: "r-kirtipur-airport",
-    name: "Kirtipur - Balkhu - Tripureshwor - Gaushala",
-    service: "South-west to airport corridor",
-    cadence: "6-9 min",
-    tone: "#5f5f8b",
-    stops: ["kirtipur", "balkhu", "tripureshwor", "ratnapark", "putalisadak", "gaushala", "sinamangal"],
+    id: "kalanki-bhaktapur",
+    name: "Kalanki - Ratna Park - Koteshwor - Bhaktapur",
+    cadence: "5 min",
+    stops: ["kalanki", "tripureshwor", "ratnapark", "newbaneshwor", "koteshwor", "thimi", "bhaktapur"],
+  },
+  {
+    id: "ratnapark-lagankhel",
+    name: "Ratna Park - Jawalakhel - Lagankhel",
+    cadence: "4 min",
+    stops: ["ratnapark", "tripureshwor", "jawalakhel", "lagankhel", "satdobato"],
+  },
+  {
+    id: "gongabu-banepa",
+    name: "Gongabu - Chabahil - Koteshwor - Banepa",
+    cadence: "12 min",
+    stops: ["gongabu", "maharajgunj", "chabahil", "gaushala", "newbaneshwor", "koteshwor", "bhaktapur", "banepa"],
   },
 ];
 
+const tileSizes: Record<TileSize, { width: number; height: number }> = {
+  compact: { width: 82, height: 42 },
+  standard: { width: 104, height: 46 },
+  wide: { width: 126, height: 46 },
+  hub: { width: 138, height: 54 },
+};
+
+const mapScale = 0.72;
+
 const placeById = new Map(places.map((place) => [place.id, place]));
 
-function projectPlace(place: Place) {
-  const rawX = ((place.lng - valleyBounds.minLng) / (valleyBounds.maxLng - valleyBounds.minLng)) * 100;
-  const rawY = ((valleyBounds.maxLat - place.lat) / (valleyBounds.maxLat - valleyBounds.minLat)) * 100;
-  const nudge = layoutNudges[place.id] ?? { x: 0, y: 0 };
-  const x = 50 + (rawX - 50) * 1.08 + nudge.x;
-  const y = 50 + (rawY - 50) * 1.04 + nudge.y;
-  return {
-    x: clamp(x, 4, 96),
-    y: clamp(y, 4, 96),
-  };
+function tileMetrics(place: Place, index: number) {
+  const letters = place.name.replace(/\s/g, "").length;
+  const neighborCount = place.neighbors.length;
+  let size: TileSize = "compact";
+
+  if (neighborCount >= 4) size = "hub";
+  else if (letters >= 10) size = "wide";
+  else if (letters >= 7 || neighborCount >= 3) size = "standard";
+
+  let shape: TileShape = "rect";
+  if (neighborCount >= 4) shape = "notch";
+  else if (letters >= 10) shape = "stepSE";
+  else if (neighborCount === 3) shape = index % 2 === 0 ? "stepNE" : "stepNW";
+  else if (neighborCount === 2) shape = index % 2 === 0 ? "rect" : "stepSW";
+
+  return { ...tileSizes[size], size, shape };
 }
 
-function clamp(value: number, min: number, max: number) {
-  return Math.min(Math.max(value, min), max);
+function routeScore(route: BusRoute, fromId: string, toId: string) {
+  const fromIndex = route.stops.indexOf(fromId);
+  const toIndex = route.stops.indexOf(toId);
+  const direct = fromIndex >= 0 && toIndex >= 0;
+  const ordered = direct && fromIndex < toIndex;
+  const from = placeById.get(fromId);
+  const to = placeById.get(toId);
+  const neighborHits = route.stops.filter((stop) => from?.neighbors.includes(stop) || to?.neighbors.includes(stop)).length;
+
+  return Number(ordered) * 100 + Number(direct) * 34 + Number(fromIndex >= 0) * 18 + Number(toIndex >= 0) * 18 + neighborHits * 5;
 }
 
-function scoreRoute(route: BusRoute, currentId: string, destinationId: string) {
-  const currentIndex = route.stops.indexOf(currentId);
-  const destinationIndex = route.stops.indexOf(destinationId);
-  const touchesCurrent = currentIndex >= 0;
-  const touchesDestination = destinationIndex >= 0;
-  const direct = touchesCurrent && touchesDestination;
-  const orderedDirect = direct && currentIndex < destinationIndex;
-  const nearbyStops = route.stops.filter((stop) => {
-    const current = placeById.get(currentId);
-    const destination = placeById.get(destinationId);
-    return current?.neighbors.includes(stop) || destination?.neighbors.includes(stop);
-  }).length;
-
-  return {
-    direct,
-    orderedDirect,
-    score: Number(orderedDirect) * 80 + Number(direct) * 30 + Number(touchesCurrent) * 18 + Number(touchesDestination) * 18 + nearbyStops * 6,
-  };
-}
-
-function bestRouteIdFor(currentId: string, destinationId: string) {
+function bestRouteId(fromId: string, toId: string) {
   return routes
-    .map((route) => ({
-      routeId: route.id,
-      match: scoreRoute(route, currentId, destinationId),
-    }))
-    .sort((a, b) => b.match.score - a.match.score)[0].routeId;
+    .map((route) => ({ id: route.id, score: routeScore(route, fromId, toId) }))
+    .sort((a, b) => b.score - a.score)[0].id;
 }
 
-function shapeFor(place: Place) {
-  const projected = projectPlace(place);
-  const centerDistance = Math.hypot(projected.x - 50, projected.y - 50) / 70;
-  const size = clamp(46 + place.weight * 6 - centerDistance * 20, 42, 96);
-  const density = clamp(place.neighbors.length, 2, 5);
+function selectorTitle(mode: SelectorMode) {
+  return mode === "from" ? "Current" : "Destination";
+}
+
+function mapOffsetFor(place: Place) {
+  const index = places.findIndex((item) => item.id === place.id);
+  const metrics = tileMetrics(place, Math.max(index, 0));
+  const x = 140 - (place.x + metrics.width / 2) * mapScale;
+  const y = 136 - (place.y + metrics.height / 2) * mapScale;
 
   return {
-    "--x": `${projected.x}%`,
-    "--y": `${projected.y}%`,
-    "--size": `${size}px`,
-    "--delay": `${(projected.x + projected.y) * -0.026}s`,
-    "--radius": `${36 + density * 4}% ${54 - density * 2}% ${42 + place.weight}% ${50 - density}%`,
-  } as React.CSSProperties;
-}
-
-function selectorLabel(mode: SelectorMode) {
-  return mode === "current" ? "Current location" : "Final destination";
+    x: Math.max(-420, Math.min(0, x)),
+    y: Math.max(-190, Math.min(0, y)),
+  };
 }
 
 export function RouteSelectorPrototype() {
-  const [activeMode, setActiveMode] = useState<SelectorMode>("destination");
-  const [currentId, setCurrentId] = useState("putalisadak");
-  const [destinationId, setDestinationId] = useState("bhaktapur");
-  const [selectedRouteIds, setSelectedRouteIds] = useState<string[]>(["r-jamalkoteshwor-sankhu"]);
-  const [cloudOffset, setCloudOffset] = useState({ x: 0, y: 0 });
+  const [openMode, setOpenMode] = useState<SelectorMode | null>(null);
+  const [fromId, setFromId] = useState("putalisadak");
+  const [toId, setToId] = useState("bhaktapur");
+  const [selectedRoutes, setSelectedRoutes] = useState<string[]>(["jamal-bhaktapur"]);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
 
-  const currentPlace = placeById.get(currentId) ?? places[0];
-  const destinationPlace = placeById.get(destinationId) ?? places[1];
+  const from = placeById.get(fromId) ?? places[0];
+  const to = placeById.get(toId) ?? places[1];
+  const activePlace = openMode === "from" ? from : to;
+  const mapOffset = mapOffsetFor(activePlace);
 
-  const routeMatches = useMemo(
+  const rankedRoutes = useMemo(
     () =>
       routes
-        .map((route) => ({
-          route,
-          match: scoreRoute(route, currentId, destinationId),
-        }))
-        .sort((a, b) => b.match.score - a.match.score),
-    [currentId, destinationId],
+        .map((route) => ({ route, score: routeScore(route, fromId, toId) }))
+        .sort((a, b) => b.score - a.score),
+    [fromId, toId],
   );
 
-  function choosePlace(placeId: string) {
-    if (activeMode === "current") {
-      setSelectedRouteIds([bestRouteIdFor(placeId, destinationId)]);
-      setCurrentId(placeId);
-      setActiveMode("destination");
-      return;
+  function selectPlace(placeId: string) {
+    if (!openMode) return;
+
+    const nextFrom = openMode === "from" ? placeId : fromId;
+    const nextTo = openMode === "to" ? placeId : toId;
+
+    if (openMode === "from") {
+      setFromId(placeId);
+      setOpenMode("to");
+    } else {
+      setToId(placeId);
+      setOpenMode(null);
     }
 
-    setSelectedRouteIds([bestRouteIdFor(currentId, placeId)]);
-    setDestinationId(placeId);
+    setSelectedRoutes([bestRouteId(nextFrom, nextTo)]);
   }
 
   function toggleRoute(routeId: string) {
-    setSelectedRouteIds((selectedIds) =>
-      selectedIds.includes(routeId)
-        ? selectedIds.filter((id) => id !== routeId)
-        : [...selectedIds, routeId],
+    setSelectedRoutes((current) =>
+      current.includes(routeId) ? current.filter((id) => id !== routeId) : [...current, routeId],
     );
   }
 
   return (
     <main className={styles.page}>
-      <section className={styles.hero}>
-        <div className={styles.copy}>
-          <p className={styles.kicker}>
-            <Sparkles size={16} />
-            Kathmandu route selection system
-          </p>
-          <h1>Pick places from a living map of words, then choose the routes that actually overlap.</h1>
-          <p>
-            The cloud is spatial: every label is projected from approximate valley coordinates, and its
-            neighbors are the places that touch it in real life. Edge words shrink and drift inward on
-            pointer movement so the selector feels like a navigable Apple Watch-style surface.
-          </p>
-        </div>
-
-        <div className={styles.summaryPanel} aria-label="Current selection summary">
+      <section className={styles.instrument} aria-labelledby="route-selector-title">
+        <header className={styles.topbar}>
           <div>
-            <span>From</span>
-            <strong>{currentPlace.name}</strong>
-            <small>{currentPlace.nepali}</small>
-          </div>
-          <Route size={22} />
-          <div>
-            <span>To</span>
-            <strong>{destinationPlace.name}</strong>
-            <small>{destinationPlace.nepali}</small>
-          </div>
-        </div>
-      </section>
-
-      <section className={styles.selectorShell} aria-labelledby="route-selector-heading">
-        <div className={styles.selectorHeader}>
-          <div>
-            <p className={styles.kicker}>
-              <MousePointer2 size={15} />
-              Part 1
-            </p>
-            <h2 id="route-selector-heading">Current location and final destination</h2>
+            <p>Mayur route grid</p>
+            <h1 id="route-selector-title">Choose route</h1>
           </div>
           <button
-            className={styles.gpsButton}
             type="button"
+            className={styles.gps}
             onClick={() => {
-              setCurrentId("putalisadak");
-              setSelectedRouteIds([bestRouteIdFor("putalisadak", destinationId)]);
+              setFromId("putalisadak");
+              setOpenMode("to");
+              setSelectedRoutes([bestRouteId("putalisadak", toId)]);
             }}
           >
             <LocateFixed size={16} />
-            Use GPS estimate
+            GPS
           </button>
-        </div>
+        </header>
 
-        <div className={styles.fieldGrid} role="tablist" aria-label="Choose which field the word cloud controls">
-          {(["current", "destination"] as SelectorMode[]).map((mode) => {
-            const place = mode === "current" ? currentPlace : destinationPlace;
-            const active = activeMode === mode;
+        <div className={styles.selectorBar} role="tablist" aria-label="Location fields">
+          {(["from", "to"] as SelectorMode[]).map((mode) => {
+            const place = mode === "from" ? from : to;
+            const open = openMode === mode;
+
             return (
-              <button
-                key={mode}
-                type="button"
-                className={`${styles.fieldCard} ${active ? styles.activeField : ""}`}
-                onClick={() => setActiveMode(mode)}
-                role="tab"
-                aria-selected={active}
-              >
-                <span>{selectorLabel(mode)}</span>
-                <strong>{place.name}</strong>
-                <small>{mode === "current" ? "GPS default, editable" : "Tap a place in the cloud"}</small>
-              </button>
+              <div key={mode} className={styles.selectorSlot}>
+                <button
+                  type="button"
+                  className={`${styles.locationPill} ${open ? styles.activePill : ""}`}
+                  role="tab"
+                  aria-selected={open}
+                  aria-expanded={open}
+                  onClick={() => setOpenMode((current) => (current === mode ? null : mode))}
+                >
+                  <span>{selectorTitle(mode)}</span>
+                  <strong>{place.name}</strong>
+                  <small>{place.nepali}</small>
+                </button>
+
+                <AnimatePresence>
+                  {open && (
+                    <motion.div
+                      className={styles.locationDialog}
+                      initial={{ opacity: 0, y: -5, scale: 0.97 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -5, scale: 0.97 }}
+                      transition={{ type: "spring", stiffness: 340, damping: 30, mass: 0.62 }}
+                    >
+                      <div className={styles.dialogHandle}>
+                        <span>{selectorTitle(mode)}</span>
+                        <strong>{place.name}</strong>
+                      </div>
+
+                      <div
+                        className={styles.cloudWindow}
+                        onPointerMove={(event) => {
+                          const rect = event.currentTarget.getBoundingClientRect();
+                          setPan({
+                            x: (event.clientX - rect.left) / rect.width - 0.5,
+                            y: (event.clientY - rect.top) / rect.height - 0.5,
+                          });
+                        }}
+                        onPointerLeave={() => setPan({ x: 0, y: 0 })}
+                      >
+                        <motion.div
+                          className={styles.topologyMap}
+                          animate={{
+                            x: mapOffset.x + pan.x * -58,
+                            y: mapOffset.y + pan.y * -42,
+                            scale: mapScale + Math.hypot(pan.x, pan.y) * 0.025,
+                          }}
+                          transition={{ type: "spring", stiffness: 88, damping: 18, mass: 0.72 }}
+                        >
+                          {places.map((topologyPlace, index) => {
+                            const metrics = tileMetrics(topologyPlace, index);
+                            const selectedAs =
+                              topologyPlace.id === fromId ? "From" : topologyPlace.id === toId ? "To" : "";
+                            const style = {
+                              "--x": `${topologyPlace.x}px`,
+                              "--y": `${topologyPlace.y}px`,
+                              "--w": `${metrics.width}px`,
+                              "--h": `${metrics.height}px`,
+                              "--delay": `${(topologyPlace.x + topologyPlace.y) * -0.01}s`,
+                            } as CSSProperties;
+
+                            return (
+                              <button
+                                key={topologyPlace.id}
+                                type="button"
+                                className={`${styles.mapTile} ${styles[metrics.shape]} ${selectedAs ? styles.selectedTile : ""}`}
+                                style={style}
+                                aria-pressed={Boolean(selectedAs)}
+                                aria-label={`${topologyPlace.name}, ${topologyPlace.nepali}. Select as ${selectorTitle(mode)}.`}
+                                onClick={() => selectPlace(topologyPlace.id)}
+                              >
+                                {selectedAs && <span>{selectedAs}</span>}
+                                <strong>{topologyPlace.name}</strong>
+                                <small>{topologyPlace.nepali}</small>
+                              </button>
+                            );
+                          })}
+                        </motion.div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             );
           })}
         </div>
 
-        <div
-          className={styles.cloudViewport}
-          onPointerMove={(event) => {
-            const rect = event.currentTarget.getBoundingClientRect();
-            const dx = (event.clientX - rect.left) / rect.width - 0.5;
-            const dy = (event.clientY - rect.top) / rect.height - 0.5;
-            setCloudOffset({
-              x: clamp(dx * -46, -26, 26),
-              y: clamp(dy * -38, -22, 22),
-            });
-          }}
-          onPointerLeave={() => setCloudOffset({ x: 0, y: 0 })}
-        >
-          <motion.div
-            className={styles.cloudCanvas}
-            animate={{ x: cloudOffset.x, y: cloudOffset.y }}
-            transition={{ type: "spring", stiffness: 90, damping: 18, mass: 0.7 }}
-          >
-            <svg className={styles.neighborLines} viewBox="0 0 100 100" aria-hidden="true">
-              {places.flatMap((place) =>
-                place.neighbors
-                  .filter((neighborId) => place.id < neighborId)
-                  .map((neighborId) => {
-                    const neighbor = placeById.get(neighborId);
-                    if (!neighbor) return null;
-                    const start = projectPlace(place);
-                    const end = projectPlace(neighbor);
-                    return (
-                      <line
-                        key={`${place.id}-${neighborId}`}
-                        x1={start.x}
-                        y1={start.y}
-                        x2={end.x}
-                        y2={end.y}
-                      />
-                    );
-                  }),
-              )}
-            </svg>
-
-            {places.map((place) => {
-              const selected = currentId === place.id || destinationId === place.id;
-              const selectedAs = currentId === place.id ? "From" : destinationId === place.id ? "To" : "";
-              return (
-                <motion.button
-                  key={place.id}
-                  type="button"
-                  className={`${styles.cloudCell} ${styles[place.tone]} ${selected ? styles.selectedCell : ""}`}
-                  style={shapeFor(place)}
-                  onClick={() => choosePlace(place.id)}
-                  aria-pressed={selected}
-                  aria-label={`${place.name}, ${place.nepali}. Select as ${selectorLabel(activeMode)}.`}
-                  whileTap={{ scale: 0.94 }}
-                  layout
-                >
-                  {selectedAs && <span className={styles.cellBadge}>{selectedAs}</span>}
-                  <strong>{place.name}</strong>
-                  <small>{place.nepali}</small>
-                </motion.button>
-              );
-            })}
-          </motion.div>
-        </div>
-      </section>
-
-      <section className={styles.routesShell} aria-labelledby="routes-heading">
-        <div className={styles.selectorHeader}>
-          <div>
-            <p className={styles.kicker}>
-              <BusFront size={15} />
-              Part 2
-            </p>
-            <h2 id="routes-heading">Route selector</h2>
-          </div>
-          <span className={styles.routeCount}>{selectedRouteIds.length} selected</span>
-        </div>
-
-        <div className={styles.routeGrid}>
-          {routeMatches.map(({ route, match }) => {
-            const selected = selectedRouteIds.includes(route.id);
+        <div className={styles.routeRail} aria-label="Route selector">
+          {rankedRoutes.map(({ route, score }, index) => {
+            const selected = selectedRoutes.includes(route.id);
             return (
               <button
                 key={route.id}
                 type="button"
-                className={`${styles.routeCard} ${selected ? styles.selectedRoute : ""}`}
-                onClick={() => toggleRoute(route.id)}
+                className={`${styles.routeChip} ${selected ? styles.selectedRoute : ""}`}
+                style={{ "--tone": index } as CSSProperties}
                 aria-pressed={selected}
+                onClick={() => toggleRoute(route.id)}
               >
-                <span className={styles.routeStripe} style={{ background: route.tone }} />
-                <span className={styles.routeTopline}>
-                  <span>{match.orderedDirect ? "Direct match" : match.direct ? "Reverse/direct corridor" : "Nearby overlap"}</span>
-                  <span>{route.cadence}</span>
+                <span className={styles.routeIcon}>
+                  {selected ? <Check size={15} /> : <BusFront size={15} />}
                 </span>
-                <strong>{route.name}</strong>
-                <small>{route.service}</small>
-                <span className={styles.stopPills}>
-                  {route.stops.slice(0, 5).map((stopId) => (
-                    <span key={stopId}>{placeById.get(stopId)?.name}</span>
-                  ))}
+                <span>
+                  <strong>{route.name}</strong>
+                  <small>{score > 100 ? "Direct" : "Overlap"} · {route.cadence}</small>
                 </span>
-                <AnimatePresence initial={false}>
-                  {selected && (
-                    <motion.span
-                      className={styles.checkMark}
-                      initial={{ scale: 0, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      exit={{ scale: 0, opacity: 0 }}
-                    >
-                      <Check size={16} />
-                    </motion.span>
-                  )}
-                </AnimatePresence>
               </button>
             );
           })}
         </div>
-      </section>
-
-      <section className={styles.mechanism}>
-        <MapPin size={18} />
-        <p>
-          Mechanism: normalize latitude and longitude into a 0-100 canvas, connect manually curated real
-          neighbors, size each word by stop importance, and reduce edge scale by distance from center. A
-          production version can replace the curated neighbor list with a Voronoi/Delaunay graph generated
-          from verified stop coordinates.
-        </p>
       </section>
     </main>
   );
