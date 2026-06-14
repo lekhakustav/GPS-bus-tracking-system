@@ -2,11 +2,10 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { BusFront, Check, LocateFixed } from "lucide-react";
-import { type CSSProperties, useMemo, useState } from "react";
+import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./route-selector.module.css";
 
 type SelectorMode = "from" | "to";
-type TileShape = "rect" | "stepNE" | "stepNW" | "stepSE" | "stepSW" | "notch";
 type TileSize = "compact" | "standard" | "wide" | "hub";
 
 type Place = {
@@ -83,17 +82,24 @@ const routes: BusRoute[] = [
 ];
 
 const tileSizes: Record<TileSize, { width: number; height: number }> = {
-  compact: { width: 82, height: 42 },
-  standard: { width: 104, height: 46 },
-  wide: { width: 126, height: 46 },
-  hub: { width: 138, height: 54 },
+  compact: { width: 82, height: 40 },
+  standard: { width: 106, height: 42 },
+  wide: { width: 132, height: 44 },
+  hub: { width: 144, height: 48 },
 };
 
 const mapScale = 0.72;
+const edgeBand = 0.34;
+const scrollBounds = {
+  minX: -265,
+  maxX: 24,
+  minY: -110,
+  maxY: 24,
+};
 
 const placeById = new Map(places.map((place) => [place.id, place]));
 
-function tileMetrics(place: Place, index: number) {
+function tileMetrics(place: Place) {
   const letters = place.name.replace(/\s/g, "").length;
   const neighborCount = place.neighbors.length;
   let size: TileSize = "compact";
@@ -102,13 +108,7 @@ function tileMetrics(place: Place, index: number) {
   else if (letters >= 10) size = "wide";
   else if (letters >= 7 || neighborCount >= 3) size = "standard";
 
-  let shape: TileShape = "rect";
-  if (neighborCount >= 4) shape = "notch";
-  else if (letters >= 10) shape = "stepSE";
-  else if (neighborCount === 3) shape = index % 2 === 0 ? "stepNE" : "stepNW";
-  else if (neighborCount === 2) shape = index % 2 === 0 ? "rect" : "stepSW";
-
-  return { ...tileSizes[size], size, shape };
+  return { ...tileSizes[size], size };
 }
 
 function routeScore(route: BusRoute, fromId: string, toId: string) {
@@ -133,9 +133,26 @@ function selectorTitle(mode: SelectorMode) {
   return mode === "from" ? "Current" : "Destination";
 }
 
+function clamp(value: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function edgeIntent(value: number) {
+  if (value < edgeBand) {
+    const distance = clamp((edgeBand - value) / edgeBand, 0, 1);
+    return -(distance * distance * (3 - 2 * distance));
+  }
+
+  if (value > 1 - edgeBand) {
+    const distance = clamp((value - (1 - edgeBand)) / edgeBand, 0, 1);
+    return distance * distance * (3 - 2 * distance);
+  }
+
+  return 0;
+}
+
 function mapOffsetFor(place: Place) {
-  const index = places.findIndex((item) => item.id === place.id);
-  const metrics = tileMetrics(place, Math.max(index, 0));
+  const metrics = tileMetrics(place);
   const x = 140 - (place.x + metrics.width / 2) * mapScale;
   const y = 136 - (place.y + metrics.height / 2) * mapScale;
 
@@ -151,11 +168,15 @@ export function RouteSelectorPrototype() {
   const [toId, setToId] = useState("bhaktapur");
   const [selectedRoutes, setSelectedRoutes] = useState<string[]>(["jamal-bhaktapur"]);
   const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [drift, setDrift] = useState({ x: 0, y: 0 });
+  const edgeRef = useRef({ x: 0, y: 0 });
+  const frameRef = useRef<number | null>(null);
+  const lastFrameRef = useRef<number | null>(null);
 
   const from = placeById.get(fromId) ?? places[0];
   const to = placeById.get(toId) ?? places[1];
   const activePlace = openMode === "from" ? from : to;
-  const mapOffset = mapOffsetFor(activePlace);
+  const mapOffset = useMemo(() => mapOffsetFor(activePlace), [activePlace]);
 
   const rankedRoutes = useMemo(
     () =>
@@ -165,9 +186,46 @@ export function RouteSelectorPrototype() {
     [fromId, toId],
   );
 
+  useEffect(() => {
+    if (!openMode) return undefined;
+
+    const tick = (time: number) => {
+      const previous = lastFrameRef.current ?? time;
+      const delta = Math.min(34, time - previous) / 16.67;
+      lastFrameRef.current = time;
+      const edge = edgeRef.current;
+
+      if (edge.x || edge.y) {
+        setDrift((current) => ({
+          x: clamp(current.x - edge.x * 7.7 * delta, scrollBounds.minX - mapOffset.x, scrollBounds.maxX - mapOffset.x),
+          y: clamp(current.y - edge.y * 6.2 * delta, scrollBounds.minY - mapOffset.y, scrollBounds.maxY - mapOffset.y),
+        }));
+      }
+
+      frameRef.current = window.requestAnimationFrame(tick);
+    };
+
+    frameRef.current = window.requestAnimationFrame(tick);
+
+    return () => {
+      if (frameRef.current !== null) {
+        window.cancelAnimationFrame(frameRef.current);
+      }
+      frameRef.current = null;
+      lastFrameRef.current = null;
+    };
+  }, [mapOffset.x, mapOffset.y, openMode]);
+
+  function resetMapMotion() {
+    edgeRef.current = { x: 0, y: 0 };
+    setPan({ x: 0, y: 0 });
+    setDrift({ x: 0, y: 0 });
+  }
+
   function selectPlace(placeId: string) {
     if (!openMode) return;
 
+    resetMapMotion();
     const nextFrom = openMode === "from" ? placeId : fromId;
     const nextTo = openMode === "to" ? placeId : toId;
 
@@ -200,6 +258,7 @@ export function RouteSelectorPrototype() {
             type="button"
             className={styles.gps}
             onClick={() => {
+              resetMapMotion();
               setFromId("putalisadak");
               setOpenMode("to");
               setSelectedRoutes([bestRouteId("putalisadak", toId)]);
@@ -223,7 +282,10 @@ export function RouteSelectorPrototype() {
                   role="tab"
                   aria-selected={open}
                   aria-expanded={open}
-                  onClick={() => setOpenMode((current) => (current === mode ? null : mode))}
+                  onClick={() => {
+                    resetMapMotion();
+                    setOpenMode((current) => (current === mode ? null : mode));
+                  }}
                 >
                   <span>{selectorTitle(mode)}</span>
                   <strong>{place.name}</strong>
@@ -248,24 +310,29 @@ export function RouteSelectorPrototype() {
                         className={styles.cloudWindow}
                         onPointerMove={(event) => {
                           const rect = event.currentTarget.getBoundingClientRect();
-                          setPan({
-                            x: (event.clientX - rect.left) / rect.width - 0.5,
-                            y: (event.clientY - rect.top) / rect.height - 0.5,
-                          });
+                          const nextPan = {
+                            x: edgeIntent((event.clientX - rect.left) / rect.width),
+                            y: edgeIntent((event.clientY - rect.top) / rect.height),
+                          };
+                          edgeRef.current = nextPan;
+                          setPan(nextPan);
                         }}
-                        onPointerLeave={() => setPan({ x: 0, y: 0 })}
+                        onPointerLeave={() => {
+                          edgeRef.current = { x: 0, y: 0 };
+                          setPan({ x: 0, y: 0 });
+                        }}
                       >
                         <motion.div
                           className={styles.topologyMap}
                           animate={{
-                            x: mapOffset.x + pan.x * -58,
-                            y: mapOffset.y + pan.y * -42,
+                            x: mapOffset.x + drift.x + pan.x * -18,
+                            y: mapOffset.y + drift.y + pan.y * -16,
                             scale: mapScale + Math.hypot(pan.x, pan.y) * 0.025,
                           }}
                           transition={{ type: "spring", stiffness: 88, damping: 18, mass: 0.72 }}
                         >
-                          {places.map((topologyPlace, index) => {
-                            const metrics = tileMetrics(topologyPlace, index);
+                          {places.map((topologyPlace) => {
+                            const metrics = tileMetrics(topologyPlace);
                             const selectedAs =
                               topologyPlace.id === fromId ? "From" : topologyPlace.id === toId ? "To" : "";
                             const style = {
@@ -280,7 +347,7 @@ export function RouteSelectorPrototype() {
                               <button
                                 key={topologyPlace.id}
                                 type="button"
-                                className={`${styles.mapTile} ${styles[metrics.shape]} ${selectedAs ? styles.selectedTile : ""}`}
+                                className={`${styles.mapTile} ${selectedAs ? styles.selectedTile : ""}`}
                                 style={style}
                                 aria-pressed={Boolean(selectedAs)}
                                 aria-label={`${topologyPlace.name}, ${topologyPlace.nepali}. Select as ${selectorTitle(mode)}.`}
