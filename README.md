@@ -20,6 +20,12 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Route selector prototype
+
+Open [http://localhost:3000/button](http://localhost:3000/button) to view the Kathmandu bus route selector UI system prototype.
+
+Developer documentation for the word-cloud mechanism and route-scoring model lives in [`docs/route-selector-ui-system.md`](docs/route-selector-ui-system.md).
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
