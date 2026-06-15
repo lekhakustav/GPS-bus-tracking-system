@@ -115,18 +115,19 @@ body {
   display: block;
   max-width: 650px;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Noto Sans Devanagari", "Kohinoor Devanagari", sans-serif;
-  font-size: clamp(45px, 6.2vw, 78px);
+  font-size: clamp(34px, 4.6vw, 58px);
   font-weight: 810;
   letter-spacing: 0;
-  line-height: 0.98;
+  line-height: 1.08;
   text-wrap: balance;
 }
 
 .hero-title .nepali-line {
-  margin-top: 18px;
+  margin-top: 0;
+  margin-bottom: 18px;
   max-width: 620px;
   color: var(--green);
-  font-size: clamp(30px, 4.1vw, 52px);
+  font-size: clamp(42px, 6.2vw, 78px);
   line-height: 1.08;
 }
 
@@ -424,6 +425,31 @@ body {
   background: linear-gradient(90deg, var(--green), #8ba85e);
 }
 
+.responsibility-strip {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.responsibility-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(27, 82, 69, 0.13);
+  border-radius: 999px;
+  background: rgba(255, 253, 247, 0.76);
+  padding: 10px 13px;
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 780;
+  box-shadow: 0 10px 28px rgba(31, 44, 39, 0.06);
+}
+
+.responsibility-chip .text-pair p + p {
+  margin-top: 1px;
+}
+
 .text-pair p {
   margin: 0;
 }
@@ -440,6 +466,24 @@ body {
   margin: 0 auto;
   max-width: 1120px;
   padding: clamp(56px, 8vw, 104px) clamp(20px, 5vw, 72px);
+}
+
+.page-panel {
+  scroll-margin-top: 24px;
+}
+
+.page-label {
+  display: inline-flex;
+  margin-bottom: 18px;
+  border: 1px solid rgba(27, 82, 69, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 253, 247, 0.72);
+  padding: 8px 12px;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 820;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .section-heading.centered {
@@ -469,6 +513,10 @@ body {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 14px;
+}
+
+.essentials-grid.three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .essential-card,
@@ -707,13 +755,18 @@ body {
   background: rgba(186, 135, 48, 0.38);
 }
 
+.closing-section {
+  margin: 0 auto;
+  max-width: 1120px;
+  padding: clamp(58px, 8vw, 108px) clamp(20px, 5vw, 72px) clamp(30px, 4vw, 56px);
+}
+
 .closing-grid {
   margin: 0 auto;
   display: grid;
-  max-width: 1120px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
-  padding: clamp(58px, 8vw, 108px) clamp(20px, 5vw, 72px) clamp(80px, 10vw, 132px);
+  padding-top: 38px;
 }
 
 .accent-card {
@@ -730,6 +783,34 @@ body {
 .accent-card .card-body,
 .accent-card .nepali-line {
   color: white;
+}
+
+.final-note {
+  position: relative;
+  z-index: 1;
+  margin: 0 auto;
+  display: flex;
+  max-width: 860px;
+  align-items: flex-start;
+  gap: 16px;
+  border-top: 1px solid var(--line);
+  padding: 34px 20px clamp(72px, 9vw, 112px);
+  color: var(--green);
+  font-size: clamp(18px, 1.8vw, 24px);
+  font-weight: 820;
+  line-height: 1.36;
+  text-align: left;
+}
+
+.final-note svg {
+  margin-top: 4px;
+  flex: 0 0 auto;
+}
+
+.final-note .text-pair p:last-child {
+  color: var(--muted);
+  font-size: 0.74em;
+  font-weight: 700;
 }
 
 @keyframes route-flow {
@@ -799,11 +880,11 @@ body {
   }
 
   .hero-title span {
-    font-size: clamp(38px, 11vw, 52px);
+    font-size: clamp(28px, 8vw, 40px);
   }
 
   .hero-title .nepali-line {
-    font-size: clamp(28px, 8vw, 38px);
+    font-size: clamp(36px, 10vw, 50px);
   }
 
   .visual-stage {
@@ -833,6 +914,10 @@ body {
   .closing-grid,
   .report-grid,
   .route-card {
+    grid-template-columns: 1fr;
+  }
+
+  .essentials-grid.three {
     grid-template-columns: 1fr;
   }
 

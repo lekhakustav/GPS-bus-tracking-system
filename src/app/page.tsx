@@ -1,97 +1,129 @@
 import {
-  BarChart3,
   BusFront,
   CheckCircle2,
+  Clock3,
   Gauge,
+  Handshake,
   MapPin,
   Megaphone,
   Navigation,
   Route,
   ShieldCheck,
   Signal,
-  Sparkles,
   TrendingDown,
   Users,
+  Wrench,
 } from "lucide-react";
 
 type BilingualCopy = {
-  en: string;
   ne: string;
+  en: string;
 };
 
 const appBuses = [
   {
     number: "MY-014",
-    route: { en: "Koteshwor to Banepa", ne: "कोटेश्वरदेखि बनेपा" },
-    eta: { en: "6 min", ne: "६ मिनेट" },
+    route: { ne: "कोटेश्वरदेखि बनेपा", en: "Koteshwor to Banepa" },
+    eta: { ne: "६ मिनेट", en: "6 min" },
     x: "52%",
     y: "42%",
   },
   {
     number: "MY-022",
-    route: { en: "Kathmandu to Bhaktapur", ne: "काठमाडौंदेखि भक्तपुर" },
-    eta: { en: "11 min", ne: "११ मिनेट" },
+    route: { ne: "काठमाडौंदेखि भक्तपुर", en: "Kathmandu to Bhaktapur" },
+    eta: { ne: "११ मिनेट", en: "11 min" },
     x: "31%",
     y: "64%",
   },
   {
     number: "MY-031",
-    route: { en: "Banepa to Kathmandu", ne: "बनेपादेखि काठमाडौं" },
-    eta: { en: "18 min", ne: "१८ मिनेट" },
+    route: { ne: "बनेपादेखि काठमाडौं", en: "Banepa to Kathmandu" },
+    eta: { ne: "१८ मिनेट", en: "18 min" },
     x: "73%",
     y: "32%",
   },
 ];
 
-const essentials = [
+const responsibilityItems = [
   {
-    title: { en: "Geofencing", ne: "रुट क्षेत्र निगरानी" },
-    body: { en: "Know when a bus leaves its approved area.", ne: "बस स्वीकृत क्षेत्रबाट बाहिरिँदा थाहा पाउनुहोस्।" },
-    icon: MapPin,
+    icon: Wrench,
+    title: { ne: "जडान हामी गर्छौं।", en: "We install it." },
+    body: { ne: "तपाईंको टोलीलाई नयाँ झन्झट थपिँदैन।", en: "Your team does not get extra hassle." },
   },
   {
-    title: { en: "Overspeed alerts", ne: "गति चेतावनी" },
-    body: { en: "See unsafe speed as it happens.", ne: "असुरक्षित गति तुरुन्तै देख्नुहोस्।" },
-    icon: Gauge,
+    icon: ShieldCheck,
+    title: { ne: "होस्टिङ हामी सम्हाल्छौं।", en: "We host it." },
+    body: { ne: "सर्भर र एपको जिम्मा हाम्रो।", en: "The server and app are our responsibility." },
   },
   {
-    title: { en: "Route tracking", ne: "रुट ट्र्याकिङ" },
-    body: { en: "Track live movement and route history.", ne: "प्रत्यक्ष बस चाल र पुरानो रुट विवरण हेर्नुहोस्।" },
-    icon: Route,
-  },
-  {
-    title: { en: "Cost reports", ne: "खर्च घटाउने रिपोर्ट" },
-    body: { en: "Find fuel and driving habits to improve.", ne: "सुधार गर्नुपर्ने इन्धन र चालक बानी पत्ता लगाउनुहोस्।" },
-    icon: BarChart3,
+    icon: Handshake,
+    title: { ne: "सहयोग हामी दिन्छौं।", en: "We support it." },
+    body: { ne: "समस्या आयो भने हामी हेर्छौं।", en: "If there is an issue, we handle it." },
   },
 ];
 
-const outcomes = [
+const gpsBasics = [
   {
-    title: { en: "Passengers wait", ne: "यात्रु पर्खिन्छन्" },
-    body: { en: "They can see the bus coming.", ne: "उनीहरूले बस आउँदै गरेको देख्छन्।" },
+    icon: MapPin,
+    title: { ne: "रुट क्षेत्र निगरानी", en: "Route area monitoring" },
+    body: { ne: "बस रुट बाहिर गयो कि भनेर देखिन्छ।", en: "You can see if a bus leaves the route area." },
   },
   {
-    title: { en: "Seats fill faster", ne: "सिट छिटो भरिन्छ" },
-    body: { en: "Mayur becomes easier to choose.", ne: "मयुर रोज्न सजिलो हुन्छ।" },
+    icon: Gauge,
+    title: { ne: "गति चेतावनी", en: "Speed warning" },
+    body: { ne: "बस धेरै छिटो चलेको तुरुन्तै थाहा हुन्छ।", en: "You know when a bus is going too fast." },
   },
   {
-    title: { en: "Managers see proof", ne: "व्यवस्थापकले प्रमाण देख्छन्" },
-    body: { en: "Reports show route and driver patterns.", ne: "रिपोर्टले रुट र चालक बानी देखाउँछ।" },
+    icon: Route,
+    title: { ne: "प्रत्यक्ष रुट ट्र्याकिङ", en: "Live route tracking" },
+    body: { ne: "बस कहाँ छ र कता जाँदैछ देखिन्छ।", en: "You can see where the bus is and where it is going." },
+  },
+];
+
+const mayurBenefits = [
+  {
+    title: { ne: "यात्रु पर्खिन्छन्", en: "Passengers wait" },
+    body: { ne: "एपमा बस देखेपछि यात्रु अर्को बसमा हतारिँदैनन्।", en: "When riders see the bus, they do not rush to another bus." },
+  },
+  {
+    title: { ne: "सिट भर्न सजिलो हुन्छ", en: "Seats are easier to fill" },
+    body: { ne: "मयुर यात्रुको फोनमा देखिन्छ।", en: "Mayur appears on the passenger's phone." },
+  },
+  {
+    title: { ne: "व्यवस्थापनलाई प्रमाण मिल्छ", en: "Managers get proof" },
+    body: { ne: "रुट, गति, र चालक बानी रिपोर्टमा देखिन्छ।", en: "Routes, speed, and driver habits show up in reports." },
   },
 ];
 
 const reportRows = [
-  { label: { en: "Overspeed", ne: "अधिक गति" }, value: "14", tone: "amber" },
-  { label: { en: "Idle minutes", ne: "आइडल मिनेट" }, value: "38", tone: "green" },
-  { label: { en: "Route exits", ne: "रुट बाहिर" }, value: "3", tone: "ink" },
+  { label: { ne: "अधिक गति", en: "Overspeed" }, value: "14", tone: "amber" },
+  { label: { ne: "आइडल मिनेट", en: "Idle minutes" }, value: "38", tone: "green" },
+  { label: { ne: "रुट बाहिर", en: "Route exits" }, value: "3", tone: "ink" },
+];
+
+const finalCards = [
+  {
+    icon: Users,
+    title: { ne: "महानगर यातायात पहिले नै जोडिएको छ।", en: "Mahanagar Yatayat is already on board." },
+    body: { ne: "हामी धेरै यातायातलाई एउटै यात्रु एपमा ल्याउँदैछौं।", en: "We are bringing more operators into one passenger app." },
+  },
+  {
+    icon: Megaphone,
+    title: { ne: "खर्च साना विज्ञापनले धान्छ।", en: "Small ads cover our costs." },
+    body: { ne: "मयुरले सेटअप वा होस्टिङ शुल्क तिर्नु पर्दैन।", en: "Mayur does not pay setup or hosting fees." },
+  },
+  {
+    icon: CheckCircle2,
+    title: { ne: "नतिजा मयुरलाई।", en: "Mayur gets the benefit." },
+    body: { ne: "दृश्यता, GPS, रिपोर्ट, र यात्रुको भरोसा।", en: "Visibility, GPS, reports, and passenger trust." },
+  },
 ];
 
 function TextPair({ copy, className = "" }: { copy: BilingualCopy; className?: string }) {
   return (
     <div className={`text-pair ${className}`}>
-      <p>{copy.en}</p>
       <p className="nepali-line">{copy.ne}</p>
+      <p>{copy.en}</p>
     </div>
   );
 }
@@ -111,8 +143,8 @@ function AppPreview() {
         <div className="phone-search">
           <MapPin size={15} />
           <span>
-            Mayur bus near me
-            <small>मेरो नजिकको मयुर बस</small>
+            मयुर बस कहाँ छ?
+            <small>Where is the Mayur bus?</small>
           </span>
         </div>
 
@@ -143,8 +175,8 @@ function AppPreview() {
             />
           </svg>
 
-          <span className="map-label map-label-left">Kathmandu / काठमाडौं</span>
-          <span className="map-label map-label-right">Banepa / बनेपा</span>
+          <span className="map-label map-label-left">काठमाडौं / Kathmandu</span>
+          <span className="map-label map-label-right">बनेपा / Banepa</span>
 
           {appBuses.map((bus, index) => (
             <div
@@ -157,7 +189,7 @@ function AppPreview() {
                 <Navigation size={12} />
               </span>
               <span className="bus-label">
-                {bus.eta.en} / {bus.eta.ne}
+                {bus.eta.ne} / {bus.eta.en}
               </span>
             </div>
           ))}
@@ -166,8 +198,8 @@ function AppPreview() {
         <div className="phone-sheet">
           <div className="sheet-handle" />
           <div className="phone-sheet-head">
-            <TextPair copy={{ en: "Nearby Mayur buses", ne: "नजिकका मयुर बसहरू" }} />
-            <span>Live / प्रत्यक्ष</span>
+            <TextPair copy={{ ne: "नजिकका मयुर बसहरू", en: "Nearby Mayur buses" }} />
+            <span>प्रत्यक्ष / Live</span>
           </div>
 
           <div className="space-y-2">
@@ -180,11 +212,11 @@ function AppPreview() {
                   <div className="flex items-center justify-between gap-2">
                     <p className="truncate text-sm font-semibold text-stone-950">{bus.number}</p>
                     <p className="shrink-0 text-sm font-semibold text-[#1b5245]">
-                      {bus.eta.en} / {bus.eta.ne}
+                      {bus.eta.ne} / {bus.eta.en}
                     </p>
                   </div>
-                  <p className="truncate text-[11px] text-stone-500">{bus.route.en}</p>
                   <p className="truncate text-[11px] text-stone-500">{bus.route.ne}</p>
+                  <p className="truncate text-[11px] text-stone-500">{bus.route.en}</p>
                 </div>
               </div>
             ))}
@@ -197,25 +229,25 @@ function AppPreview() {
 
 function OperatorDashboard() {
   return (
-    <div className="dashboard-card" aria-label="Operator dashboard preview">
+    <div className="dashboard-card" aria-label="Simple operator report preview">
       <div className="dashboard-topline">
-        <TextPair copy={{ en: "Mayur operations report", ne: "मयुर सञ्चालन रिपोर्ट" }} />
-        <span>Today / आज</span>
+        <TextPair copy={{ ne: "मयुरको सरल रिपोर्ट", en: "Simple Mayur report" }} />
+        <span>आज / Today</span>
       </div>
 
       <div className="saving-panel">
         <TrendingDown size={22} />
         <TextPair
           copy={{
+            ne: "चालकलाई प्रतिक्रिया दिँदा इन्धन प्रयोग औसतमा करिब ३% सुधार हुन सक्छ।",
             en: "Driver feedback can improve fuel economy about 3% on average.",
-            ne: "चालक प्रतिक्रिया दिएपछि इन्धन प्रयोग औसतमा करिब ३% सुधार हुन सक्छ।",
           }}
         />
       </div>
 
       <div className="report-grid">
         {reportRows.map((row) => (
-          <div className={`report-cell ${row.tone}`} key={row.label.en}>
+          <div className={`report-cell ${row.tone}`} key={row.label.ne}>
             <span>{row.value}</span>
             <TextPair copy={row.label} />
           </div>
@@ -224,7 +256,7 @@ function OperatorDashboard() {
 
       <div className="route-card">
         <div>
-          <TextPair copy={{ en: "Banepa route", ne: "बनेपा रुट" }} />
+          <TextPair copy={{ ne: "बनेपा रुट", en: "Banepa route" }} />
           <p>MY-014 / MY-022 / MY-031</p>
         </div>
         <div className="route-bars" aria-hidden="true">
@@ -244,27 +276,39 @@ export default function Home() {
         <div className="hero-grid">
           <div className="hero-copy">
             <div className="hero-mark">
-              <Sparkles size={16} />
-              <TextPair copy={{ en: "Free for Mayur", ne: "मयुरका लागि निःशुल्क" }} />
+              <Handshake size={16} />
+              <TextPair copy={{ ne: "जिम्मा हाम्रो", en: "Our responsibility" }} />
             </div>
             <h1 className="hero-title">
-              <span>Mayur buses, visible before they arrive.</span>
-              <span className="nepali-line">बस आउनुअघि नै मयुर देखिने।</span>
+              <span className="nepali-line">GPS को झन्झट हामी लिन्छौं।</span>
+              <span>We take responsibility for the GPS work.</span>
             </h1>
             <TextPair
               copy={{
-                en: "Free GPS setup, live passenger app, and operator reports.",
-                ne: "निःशुल्क GPS जडान, प्रत्यक्ष यात्रु एप, र सञ्चालक रिपोर्ट।",
+                ne: "फाइदा मयुरलाई: यात्रु देख्छन्, व्यवस्थापकले रिपोर्ट पाउँछन्, शुल्क लाग्दैन।",
+                en: "Mayur gets the benefit: passengers see the buses, managers get reports, and there is no fee.",
               }}
               className="hero-lede"
             />
+
+            <div className="responsibility-strip">
+              {responsibilityItems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div className="responsibility-chip" key={item.title.ne}>
+                    <Icon size={18} />
+                    <TextPair copy={item.title} />
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           <div className="hero-visual">
             <div className="visual-stage">
               <AppPreview />
               <div className="mini-dashboard">
-                <TextPair copy={{ en: "Seats are easier to fill.", ne: "सिट भर्न सजिलो हुन्छ।" }} />
+                <TextPair copy={{ ne: "यात्रुले बस देख्छन्।", en: "Passengers see the bus." }} />
                 <div className="mini-meter"><span /></div>
               </div>
             </div>
@@ -272,22 +316,23 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="content-section essentials-section">
+      <section className="content-section page-panel">
         <div className="section-heading centered">
+          <span className="page-label">१ / Page 1</span>
           <TextPair
             copy={{
-              en: "The important things are clear.",
-              ne: "मुख्य कुरा स्पष्ट छन्।",
+              ne: "पहिले चाहिने GPS काम।",
+              en: "First, the GPS work Mayur needs.",
             }}
             className="section-title"
           />
         </div>
 
-        <div className="essentials-grid">
-          {essentials.map((item) => {
+        <div className="essentials-grid three">
+          {gpsBasics.map((item) => {
             const Icon = item.icon;
             return (
-              <article key={item.title.en} className="essential-card">
+              <article key={item.title.ne} className="essential-card">
                 <div className="card-icon">
                   <Icon size={20} />
                 </div>
@@ -299,20 +344,28 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="feature-band passenger-band">
+      <section className="feature-band passenger-band page-panel">
         <div className="band-copy">
+          <span className="page-label">२ / Page 2</span>
           <TextPair
             copy={{
-              en: "If passengers can see Mayur, they wait for Mayur.",
-              ne: "यात्रुले मयुर देखे भने, उनीहरू मयुर पर्खिन्छन्।",
+              ne: "यात्रुले एपमा मयुर देख्छन्।",
+              en: "Passengers see Mayur inside the app.",
             }}
             className="section-title"
+          />
+          <TextPair
+            copy={{
+              ne: "बस आउँदैछ भन्ने थाहा भयो भने यात्रु पर्खिन्छन्।",
+              en: "When riders know the bus is coming, they wait.",
+            }}
+            className="quiet-copy"
           />
         </div>
 
         <div className="outcome-stack">
-          {outcomes.map((item) => (
-            <div className="outcome-row" key={item.title.en}>
+          {mayurBenefits.map((item) => (
+            <div className="outcome-row" key={item.title.ne}>
               <CheckCircle2 size={20} />
               <div>
                 <TextPair copy={item.title} className="outcome-title" />
@@ -323,19 +376,20 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="feature-band data-band">
+      <section className="feature-band data-band page-panel">
         <div className="band-copy">
+          <span className="page-label">३ / Page 3</span>
           <TextPair
             copy={{
-              en: "The same GPS data can reduce operating waste.",
-              ne: "उही GPS डेटाले सञ्चालनको अनावश्यक खर्च घटाउन सक्छ।",
+              ne: "व्यवस्थापकलाई सरल रिपोर्ट।",
+              en: "Simple reports for management.",
             }}
             className="section-title"
           />
           <TextPair
             copy={{
-              en: "We show speed, idling, route exits, and driver patterns.",
-              ne: "हामी गति, आइडलिङ, रुट बाहिर गएको समय, र चालक बानी देखाउँछौं।",
+              ne: "कुन बस छिटो चल्यो, कहाँ धेरै रोकियो, र कुन रुटमा समस्या छ भनेर हामी देखाउँछौं।",
+              en: "We show which bus went too fast, where it waited too long, and which route needs attention.",
             }}
             className="quiet-copy"
           />
@@ -344,66 +398,42 @@ export default function Home() {
         <OperatorDashboard />
       </section>
 
-      <section className="closing-grid">
-        <article className="closing-card">
-          <div className="card-icon">
-            <Users size={20} />
-          </div>
+      <section className="closing-section page-panel">
+        <div className="section-heading centered">
+          <span className="page-label">४ / Page 4</span>
           <TextPair
             copy={{
-              en: "Mahanagar Yatayat is already on board.",
-              ne: "महानगर यातायात पहिले नै जोडिएको छ।",
+              ne: "खर्च र भरोसाको कुरा स्पष्ट।",
+              en: "The cost and trust are clear.",
             }}
-            className="card-title"
+            className="section-title"
           />
-          <TextPair
-            copy={{
-              en: "We aim to bring many more operators into the same passenger app.",
-              ne: "हामी धेरै सेवा प्रदायकहरूलाई यही यात्रु एपमा ल्याउने लक्ष्य राख्छौं।",
-            }}
-            className="card-body"
-          />
-        </article>
+        </div>
 
-        <article className="closing-card">
-          <div className="card-icon">
-            <Megaphone size={20} />
-          </div>
-          <TextPair
-            copy={{
-              en: "Small in-app ads cover our costs.",
-              ne: "एपभित्रका साना विज्ञापनले हाम्रो खर्च धान्छ।",
-            }}
-            className="card-title"
-          />
-          <TextPair
-            copy={{
-              en: "Mayur does not pay setup or hosting fees.",
-              ne: "मयुरले सेटअप वा होस्टिङ शुल्क तिर्नु पर्दैन।",
-            }}
-            className="card-body"
-          />
-        </article>
+        <div className="closing-grid">
+          {finalCards.map((card, index) => {
+            const Icon = card.icon;
+            return (
+              <article className={`closing-card ${index === 2 ? "accent-card" : ""}`} key={card.title.ne}>
+                <div className="card-icon">
+                  <Icon size={20} />
+                </div>
+                <TextPair copy={card.title} className="card-title" />
+                <TextPair copy={card.body} className="card-body" />
+              </article>
+            );
+          })}
+        </div>
+      </section>
 
-        <article className="closing-card accent-card">
-          <div className="card-icon">
-            <ShieldCheck size={20} />
-          </div>
-          <TextPair
-            copy={{
-              en: "We handle the technology with care.",
-              ne: "प्रविधि हामी ध्यानपूर्वक सम्हाल्छौं।",
-            }}
-            className="card-title"
-          />
-          <TextPair
-            copy={{
-              en: "Mayur gets visibility, compliance, and useful reports.",
-              ne: "मयुरले दृश्यता, अनुपालन, र उपयोगी रिपोर्ट पाउँछ।",
-            }}
-            className="card-body"
-          />
-        </article>
+      <section className="final-note">
+        <Clock3 size={22} />
+        <TextPair
+          copy={{
+            ne: "अर्को कदम: एउटा सानो पाइलट सुरु गरौं। बाँकी जिम्मा हाम्रो।",
+            en: "Next step: start a small pilot. We take responsibility for the rest.",
+          }}
+        />
       </section>
     </main>
   );
