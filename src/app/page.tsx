@@ -1,18 +1,16 @@
 import {
+  ArrowUpRight,
   BusFront,
   CheckCircle2,
   Clock3,
   Gauge,
-  Handshake,
   MapPin,
   Megaphone,
   Navigation,
   Route,
-  ShieldCheck,
   Signal,
   TrendingDown,
   Users,
-  Wrench,
 } from "lucide-react";
 
 type BilingualCopy = {
@@ -41,24 +39,6 @@ const appBuses = [
     eta: { ne: "१८ मिनेट", en: "18 min" },
     x: "73%",
     y: "32%",
-  },
-];
-
-const responsibilityItems = [
-  {
-    icon: Wrench,
-    title: { ne: "जडान हामी गर्छौं।", en: "We install it." },
-    body: { ne: "तपाईंको टोलीलाई नयाँ झन्झट थपिँदैन।", en: "Your team does not get extra hassle." },
-  },
-  {
-    icon: ShieldCheck,
-    title: { ne: "होस्टिङ हामी सम्हाल्छौं।", en: "We host it." },
-    body: { ne: "सर्भर र एपको जिम्मा हाम्रो।", en: "The server and app are our responsibility." },
-  },
-  {
-    icon: Handshake,
-    title: { ne: "सहयोग हामी दिन्छौं।", en: "We support it." },
-    body: { ne: "समस्या आयो भने हामी हेर्छौं।", en: "If there is an issue, we handle it." },
   },
 ];
 
@@ -99,6 +79,29 @@ const reportRows = [
   { label: { ne: "अधिक गति", en: "Overspeed" }, value: "14", tone: "amber" },
   { label: { ne: "आइडल मिनेट", en: "Idle minutes" }, value: "38", tone: "green" },
   { label: { ne: "रुट बाहिर", en: "Route exits" }, value: "3", tone: "ink" },
+];
+
+const heroRows = [
+  {
+    ne: "GPS को झन्झट हामी लिन्छौं।",
+    en: "We take responsibility for the GPS work.",
+  },
+  {
+    ne: "फाइदा मयुरलाई: यात्रु देख्छन्, व्यवस्थापकले रिपोर्ट पाउँछन्, शुल्क लाग्दैन।",
+    en: "Mayur gets the benefit: passengers see the buses, managers get reports, and there is no fee.",
+  },
+  {
+    ne: "जडान हामी गर्छौं।",
+    en: "We install it.",
+  },
+  {
+    ne: "होस्टिङ हामी सम्हाल्छौं।",
+    en: "We host it.",
+  },
+  {
+    ne: "सहयोग हामी दिन्छौं।",
+    en: "We support it.",
+  },
 ];
 
 const finalCards = [
@@ -231,8 +234,8 @@ function OperatorDashboard() {
   return (
     <div className="dashboard-card" aria-label="Simple operator report preview">
       <div className="dashboard-topline">
-        <TextPair copy={{ ne: "मयुरको सरल रिपोर्ट", en: "Simple Mayur report" }} />
-        <span>आज / Today</span>
+        <TextPair copy={{ ne: "मयुरको मासिक रिपोर्ट", en: "Monthly Mayur report" }} />
+        <span>हरेक महिना / Monthly</span>
       </div>
 
       <div className="saving-panel">
@@ -275,32 +278,19 @@ export default function Home() {
       <section className="hero-section">
         <div className="hero-grid">
           <div className="hero-copy">
-            <div className="hero-mark">
-              <Handshake size={16} />
-              <TextPair copy={{ ne: "जिम्मा हाम्रो", en: "Our responsibility" }} />
-            </div>
-            <h1 className="hero-title">
-              <span className="nepali-line">GPS को झन्झट हामी लिन्छौं।</span>
-              <span>We take responsibility for the GPS work.</span>
-            </h1>
-            <TextPair
-              copy={{
-                ne: "फाइदा मयुरलाई: यात्रु देख्छन्, व्यवस्थापकले रिपोर्ट पाउँछन्, शुल्क लाग्दैन।",
-                en: "Mayur gets the benefit: passengers see the buses, managers get reports, and there is no fee.",
-              }}
-              className="hero-lede"
-            />
-
-            <div className="responsibility-strip">
-              {responsibilityItems.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <div className="responsibility-chip" key={item.title.ne}>
-                    <Icon size={18} />
-                    <TextPair copy={item.title} />
-                  </div>
-                );
-              })}
+            <div className="language-board" aria-label="Nepali and English overview">
+              <div className="language-column nepali-column">
+                <span className="column-label">नेपाली</span>
+                {heroRows.map((row) => (
+                  <p key={row.ne}>{row.ne}</p>
+                ))}
+              </div>
+              <div className="language-column english-column">
+                <span className="column-label">English</span>
+                {heroRows.map((row) => (
+                  <p key={row.en}>{row.en}</p>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -321,8 +311,8 @@ export default function Home() {
           <span className="page-label">१ / Page 1</span>
           <TextPair
             copy={{
-              ne: "पहिले चाहिने GPS काम।",
-              en: "First, the GPS work Mayur needs.",
+              ne: "हाम्रा GPS devices ले तपाईंलाई तीन सुविधा दिन्छन्।",
+              en: "Our GPS devices give you three features.",
             }}
             className="section-title"
           />
@@ -366,7 +356,7 @@ export default function Home() {
         <div className="outcome-stack">
           {mayurBenefits.map((item) => (
             <div className="outcome-row" key={item.title.ne}>
-              <CheckCircle2 size={20} />
+              <ArrowUpRight size={20} />
               <div>
                 <TextPair copy={item.title} className="outcome-title" />
                 <TextPair copy={item.body} className="outcome-body" />
@@ -381,8 +371,8 @@ export default function Home() {
           <span className="page-label">३ / Page 3</span>
           <TextPair
             copy={{
-              ne: "व्यवस्थापकलाई सरल रिपोर्ट।",
-              en: "Simple reports for management.",
+              ne: "हरेक महिना हामी data analysis report दिन्छौं।",
+              en: "We provide a data analysis report every month.",
             }}
             className="section-title"
           />
