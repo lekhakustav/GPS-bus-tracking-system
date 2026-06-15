@@ -82,8 +82,8 @@ body {
 .hero-section {
   position: relative;
   z-index: 1;
-  min-height: 100svh;
-  padding: 24px clamp(18px, 4vw, 56px) 72px;
+  min-height: min(100svh, 860px);
+  padding: 38px clamp(18px, 4vw, 56px) 72px;
 }
 
 .proposal-nav {
@@ -100,12 +100,11 @@ body {
 .hero-grid {
   margin: 0 auto;
   display: grid;
-  min-height: calc(100svh - 84px);
+  min-height: min(calc(100svh - 110px), 720px);
   max-width: 1180px;
   grid-template-columns: minmax(0, 1fr) minmax(300px, 460px);
   align-items: center;
   gap: clamp(36px, 6vw, 82px);
-  padding-top: 48px;
 }
 
 .hero-copy {
@@ -130,8 +129,51 @@ body {
 .closing-section h2 {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Noto Sans Devanagari", "Kohinoor Devanagari", sans-serif;
   font-weight: 760;
-  letter-spacing: -0.012em;
+  letter-spacing: 0;
   text-wrap: balance;
+}
+
+.text-pair p {
+  margin: 0;
+}
+
+.text-pair p + p {
+  margin-top: 0.42em;
+}
+
+.nepali-line {
+  color: var(--green);
+}
+
+.hero-title {
+  margin: 0;
+}
+
+.hero-title span {
+  display: block;
+  max-width: 700px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Noto Sans Devanagari", "Kohinoor Devanagari", sans-serif;
+  font-size: clamp(34px, 5vw, 56px);
+  font-weight: 790;
+  line-height: 1.05;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.hero-title .nepali-line {
+  margin-top: 0.42em;
+  max-width: 760px;
+  font-size: clamp(25px, 3.3vw, 40px);
+  line-height: 1.16;
+}
+
+.hero-lede {
+  margin-top: 24px;
+  max-width: 660px;
+  color: var(--ink);
+  font-size: clamp(18px, 1.7vw, 23px);
+  font-weight: 750;
+  line-height: 1.36;
 }
 
 .hero-copy h1 {
@@ -163,6 +205,15 @@ body {
 .hero-subcopy {
   margin-top: 14px;
   max-width: 520px;
+}
+
+.hero-subcopy .nepali-line,
+.section-heading .nepali-line,
+.split-section .nepali-line,
+.closing-section .nepali-line,
+.cost-card > .text-pair:not(.section-title) .nepali-line {
+  color: var(--green);
+  font-weight: 650;
 }
 
 .offer-note {
@@ -239,6 +290,14 @@ body {
   font-size: 14px;
   font-weight: 750;
   box-shadow: 0 12px 28px rgba(20, 20, 18, 0.08);
+}
+
+.phone-search small {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 650;
 }
 
 .mini-map {
@@ -359,6 +418,21 @@ body {
   line-height: 1.08;
 }
 
+.section-title p {
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Noto Sans Devanagari", "Kohinoor Devanagari", sans-serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 780;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.section-title .nepali-line {
+  color: var(--green);
+  font-size: clamp(22px, 3vw, 34px);
+  line-height: 1.18;
+}
+
 .headline-break {
   display: block;
 }
@@ -432,6 +506,35 @@ body {
   line-height: 1.5;
 }
 
+.card-title {
+  margin-top: 28px;
+}
+
+.card-title p {
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Noto Sans Devanagari", "Kohinoor Devanagari", sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.card-title .nepali-line {
+  color: var(--green);
+  font-size: 17px;
+}
+
+.card-body {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.card-body .nepali-line {
+  color: var(--green);
+  font-weight: 650;
+}
+
 .split-section {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
@@ -446,13 +549,13 @@ body {
 
 .value-line {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 14px;
   border-bottom: 1px solid var(--line);
   padding: 20px 0;
   color: var(--ink);
-  font-size: clamp(17px, 1.5vw, 20px);
-  font-weight: 800;
+  font-size: clamp(15px, 1.25vw, 18px);
+  font-weight: 760;
 }
 
 .value-line svg {
@@ -462,6 +565,79 @@ body {
 
 .app-section {
   padding-top: 48px;
+}
+
+.insight-section,
+.trust-section,
+.cost-section {
+  padding-top: 48px;
+}
+
+.insight-grid,
+.trust-grid {
+  margin-top: 36px;
+  display: grid;
+  gap: 14px;
+}
+
+.insight-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.insight-card,
+.trust-card,
+.cost-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 250, 241, 0.76);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.insight-card {
+  min-height: 304px;
+  padding: 22px;
+}
+
+.trust-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.trust-card {
+  display: flex;
+  gap: 14px;
+  padding: 20px;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 720;
+  line-height: 1.42;
+}
+
+.trust-card svg {
+  margin-top: 2px;
+  color: var(--gold);
+  flex: 0 0 auto;
+}
+
+.trust-card .nepali-line {
+  color: var(--green);
+}
+
+.cost-card {
+  margin-inline: auto;
+  max-width: 920px;
+  padding: clamp(24px, 5vw, 44px);
+}
+
+.cost-card .benefit-icon {
+  margin-bottom: 24px;
+}
+
+.cost-card > .text-pair:not(.section-title) {
+  margin-top: 18px;
+  max-width: 720px;
+  color: var(--muted);
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.47;
 }
 
 .closing-section {
@@ -571,12 +747,17 @@ body {
     min-height: auto;
   }
 
-  .hero-visual {
-    order: -1;
-  }
-
   .benefit-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .insight-grid,
+  .trust-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .insight-card {
+    min-height: auto;
   }
 
   .value-panel {
@@ -612,5 +793,9 @@ body {
 
   .benefit-card {
     min-height: auto;
+  }
+
+  .trust-card {
+    align-items: flex-start;
   }
 }
