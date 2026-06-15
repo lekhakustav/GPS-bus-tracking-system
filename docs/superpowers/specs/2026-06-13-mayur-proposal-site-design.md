@@ -16,7 +16,11 @@ The free promise is not only for the beginning or a limited pilot. Setup, hostin
 
 Later versions of the app can include more bus routes, making the product more useful for daily passengers while preserving Mayur's free visibility.
 
-The four GPS features should be named directly: geofencing, overspeed alerts, ignition status, and route tracking. These labels are based on current public reporting on Nepal's draft public-transport technology guidelines.
+The current brochure should name three GPS features directly: route area monitoring, speed warnings, and live route tracking. Ignition status is intentionally removed from the Mayur-facing pitch.
+
+The offer also includes a monthly data-analysis report for management. The report should make cost control concrete by showing overspeeding, idle minutes, route exits, and route-specific issues. Keep the fuel-saving claim careful: driver feedback can improve fuel economy about 3% on average.
+
+The cost model should be explicit: Mayur does not pay setup or hosting fees because the passenger app can carry small ads to cover operating costs. The brochure should also say that Mahanagar Yatayat is already on board and that more operators can be added later.
 
 ## Experience Direction
 
@@ -24,25 +28,25 @@ The site should read as a premium proposal, not a dashboard. It should remove th
 
 The page should use large, confident scroll sections:
 
-1. Opening offer: "Free government-ready GPS setup for Mayur Yatayat."
-2. Four GPS features: geofencing, overspeed alerts, ignition status, and route tracking.
-3. Why it matters: "If passengers see the bus, they wait." Keep the Nepali line "बस देखियो भने यात्रु पर्खिन्छन्।"
-4. App preview: a polished phone mockup showing buses inside the consumer app.
-5. Coverage plan: cover all Mayur Yatayat buses first, then support other bus routes later as part of a long-term one-app route network.
+1. Opening responsibility: "GPS को झन्झट हामी लिन्छौं।"
+2. GPS features: route area monitoring, speed warnings, and live route tracking.
+3. Passenger benefit: "यात्रुले एपमा मयुर देख्छन्।"
+4. Management report: monthly data analysis with speed, idle, route exit, and fuel-use guidance.
+5. Cost and trust: Mahanagar Yatayat proof, small ads cover costs, and Mayur receives the benefit.
 
 ## Copy Style
 
-Use English and Nepali together. English should be precise for the proposal. Nepali should make the benefit instantly understandable. Keep each section short. Use simple sentences. Avoid technical clutter, investor jargon, dashboard language, repeated claims, and CTA buttons.
+Use Nepali as the default reading experience. English should be available from a single translate button at the top of the page, not shown side-by-side. Keep each section short. Use simple sentences that make responsibility and benefit clear for middle-aged Nepali operators with normal business education. Avoid technical clutter, investor jargon, dashboard language, repeated claims, and CTA buttons.
 
 ## Visual Direction
 
-Use a minimal, Framer-like look: light background, disciplined typography, subtle motion, large whitespace, crisp product surfaces, and restrained color. The design should avoid the current dark-orange dashboard theme and avoid a large map as the hero.
+Use a premium Framer-like look: animated light mesh background, disciplined typography, subtle motion, large whitespace, crisp glass product surfaces, and a controlled but more vivid palette. The design should avoid the current dark-orange dashboard theme and avoid a large map as the hero.
 
 Use an Apple UI-like text scale rather than oversized landing-page type: roughly 34px+ for the main large title, 28px+ for section titles, and 15-17px for body copy, with readable line heights.
 
 The main product visual should be a phone-style app mockup with a small route surface and moving or listed bus items. This visual exists to show what consumers might see, not to simulate a full tracking system.
 
-Motion should be tasteful and functional: gentle phone drift, animated route flow, subtle section entry, and small GPS feature-card instrument animations. Avoid loud dashboard animation.
+Motion should be tasteful and functional: gentle phone drift, animated route flow, ambient background motion, language-transition polish, and hover movement on cards. Avoid hiding brochure sections until scroll because screenshots and print-like review should show all content clearly.
 
 ## Polish Layer
 

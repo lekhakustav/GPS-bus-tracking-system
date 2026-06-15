@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Mayur Yatayat GPS Proposal",
-  description: "A free government-ready GPS setup and passenger app proposal for Mayur Yatayat.",
+  title: "मयुर यातायात GPS प्रस्ताव",
+  description: "मयुर यातायातका लागि GPS जडान, यात्रु एप, र व्यवस्थापन रिपोर्ट प्रस्ताव।",
   keywords: "Mayur Yatayat, GPS proposal, Nepal bus GPS, passenger app, bus tracking",
   authors: [{ name: "Mayur GPS Proposal Team" }],
   icons: {
@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased scroll-smooth">
+    <html lang="ne" className="h-full antialiased scroll-smooth">
       <body className="min-h-full flex flex-col bg-brand-bg text-brand-text font-sans">{children}</body>
     </html>
   );
