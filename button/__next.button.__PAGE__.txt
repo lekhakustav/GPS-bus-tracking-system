@@ -1,0 +1,7 @@
+1:"$Sreact.fragment"
+2:I[88457,["/GPS-bus-tracking-system/_next/static/chunks/158myu8e_yme3.js","/GPS-bus-tracking-system/_next/static/chunks/0_bwisnvodajy.js","/GPS-bus-tracking-system/_next/static/chunks/0y9thb9i9o0do.js"],"RouteSelectorPrototype"]
+3:I[97367,["/GPS-bus-tracking-system/_next/static/chunks/158myu8e_yme3.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+:HL["/GPS-bus-tracking-system/_next/static/chunks/453kfkq5z4kxc.css","style"]
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{}],[["$","link","0",{"rel":"stylesheet","href":"/GPS-bus-tracking-system/_next/static/chunks/453kfkq5z4kxc.css","precedence":"next"}],["$","script","script-0",{"src":"/GPS-bus-tracking-system/_next/static/chunks/0_bwisnvodajy.js","async":true}],["$","script","script-1",{"src":"/GPS-bus-tracking-system/_next/static/chunks/0y9thb9i9o0do.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"ImtrfIrdpx0duCKtVQ5XO"}
+5:null
