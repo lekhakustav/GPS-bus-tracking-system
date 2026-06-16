@@ -30,7 +30,9 @@ Developer documentation for the word-cloud mechanism and route-scoring model liv
 
 The proposal site is configured for static export with `output: "export"` in `next.config.ts`. On GitHub Actions, the build uses the repository name as the `basePath`, so the published site can load its CSS and JavaScript from `/GPS-bus-tracking-system/`.
 
-Every push to `main` runs `.github/workflows/deploy-pages.yml`. The workflow installs dependencies, runs `npm run build`, uploads the generated `out` directory, and deploys it to GitHub Pages.
+Every push to `main` runs `.github/workflows/deploy-pages.yml`. The workflow installs dependencies, runs `npm run build`, and pushes the generated `out` directory to the `gh-pages` branch.
+
+The repository owner must enable GitHub Pages with the `gh-pages` branch as the publishing source. After that setting is enabled, the site is served from `https://lekhakustav.github.io/GPS-bus-tracking-system/`.
 
 ## Learn More
 
