@@ -26,6 +26,12 @@ Open [http://localhost:3000/button](http://localhost:3000/button) to view the Ka
 
 Developer documentation for the word-cloud mechanism and route-scoring model lives in [`docs/route-selector-ui-system.md`](docs/route-selector-ui-system.md).
 
+## GitHub Pages deployment
+
+The proposal site is configured for static export with `output: "export"` in `next.config.ts`. On GitHub Actions, the build uses the repository name as the `basePath`, so the published site can load its CSS and JavaScript from `/GPS-bus-tracking-system/`.
+
+Every push to `main` runs `.github/workflows/deploy-pages.yml`. The workflow installs dependencies, runs `npm run build`, uploads the generated `out` directory, and deploys it to GitHub Pages.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

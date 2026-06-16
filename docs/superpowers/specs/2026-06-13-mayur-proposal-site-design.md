@@ -20,7 +20,7 @@ The current brochure should name three GPS features directly: route area monitor
 
 The offer also includes a monthly data-analysis report for management. The report should make cost control concrete by showing overspeeding, idle minutes, route exits, and route-specific issues. Keep the fuel-saving claim careful: driver feedback can improve fuel economy about 3% on average.
 
-The cost model should be explicit: Mayur does not pay setup or hosting fees because the passenger app can carry small ads to cover operating costs. The brochure should also say that Mahanagar Yatayat is already on board and that more operators can be added later.
+The cost model should be explicit: Mayur does not pay setup or hosting fees because the passenger app can carry small ads to cover operating costs. The brochure should not mention other operators by name until the business team is ready to make that claim.
 
 ## Experience Direction
 
@@ -32,11 +32,11 @@ The page should use large, confident scroll sections:
 2. GPS features: route area monitoring, speed warnings, and live route tracking.
 3. Passenger benefit: "यात्रुले एपमा मयुर देख्छन्।"
 4. Management report: monthly data analysis with speed, idle, route exit, and fuel-use guidance.
-5. Cost and trust: Mahanagar Yatayat proof, small ads cover costs, and Mayur receives the benefit.
+5. Cost and trust: small ads cover costs, Mayur receives the benefit, and a small pilot creates proof.
 
 ## Copy Style
 
-Use Nepali as the default reading experience. English should be available from a single translate button at the top of the page, not shown side-by-side. Keep each section short. Use simple sentences that make responsibility and benefit clear for middle-aged Nepali operators with normal business education. Avoid technical clutter, investor jargon, dashboard language, repeated claims, and CTA buttons.
+Use Nepali as the default reading experience. English should be available from a single translate button at the top of the page, not shown side-by-side. Keep each section short. Use full sentences, clear claims, and complete clauses that make responsibility and benefit clear for middle-aged Nepali operators with normal business education. Avoid technical clutter, investor jargon, dashboard language, repeated claims, and CTA buttons.
 
 ## Visual Direction
 

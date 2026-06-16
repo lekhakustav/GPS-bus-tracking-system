@@ -62,8 +62,8 @@ const heroRows: Copy[] = [
     en: "We take responsibility for the GPS work.",
   },
   {
-    ne: "फाइदा मयुरलाई: यात्रु देख्छन्, व्यवस्थापकले रिपोर्ट पाउँछन्, शुल्क लाग्दैन।",
-    en: "Mayur gets the benefit: passengers see the buses, managers get reports, and there is no fee.",
+    ne: "मयुरले फाइदा पाउँछ, किनकि यात्रुले बस देख्छन्, व्यवस्थापकले रिपोर्ट पाउँछन्, र मयुरले शुल्क तिर्नु पर्दैन।",
+    en: "Mayur benefits because passengers see the buses, managers receive reports, and Mayur pays no fee.",
   },
 ];
 
@@ -76,33 +76,33 @@ const responsibilityRows: Copy[] = [
 const gpsBasics: IconCopy[] = [
   {
     icon: MapPin,
-    title: { ne: "रुट क्षेत्र निगरानी", en: "Route area monitoring" },
+    title: { ne: "रुट क्षेत्र निगरानी हुन्छ।", en: "Route area monitoring is included." },
     body: { ne: "बस रुट बाहिर गयो कि भनेर देखिन्छ।", en: "You can see if a bus leaves the route area." },
   },
   {
     icon: Gauge,
-    title: { ne: "गति चेतावनी", en: "Speed warning" },
+    title: { ne: "गति चेतावनी तुरुन्त आउँछ।", en: "Speed warnings arrive immediately." },
     body: { ne: "बस धेरै छिटो चलेको तुरुन्तै थाहा हुन्छ।", en: "You know when a bus is going too fast." },
   },
   {
     icon: Route,
-    title: { ne: "प्रत्यक्ष रुट ट्र्याकिङ", en: "Live route tracking" },
+    title: { ne: "प्रत्यक्ष रुट ट्र्याकिङ हुन्छ।", en: "Live route tracking is included." },
     body: { ne: "बस कहाँ छ र कता जाँदैछ देखिन्छ।", en: "You can see where the bus is and where it is going." },
   },
 ];
 
 const mayurBenefits: Copy[] = [
   {
-    ne: "यात्रु पर्खिन्छन्",
-    en: "Passengers wait",
+    ne: "यात्रु बस पर्खिन्छन्।",
+    en: "Passengers wait for the bus.",
   },
   {
-    ne: "सिट भर्न सजिलो हुन्छ",
-    en: "Seats are easier to fill",
+    ne: "सिट भर्न सजिलो हुन्छ।",
+    en: "Seats become easier to fill.",
   },
   {
-    ne: "व्यवस्थापनलाई प्रमाण मिल्छ",
-    en: "Managers get proof",
+    ne: "व्यवस्थापनले प्रमाण पाउँछ।",
+    en: "Managers get proof.",
   },
 ];
 
@@ -130,15 +130,15 @@ const reportRows = [
 const finalCards: IconCopy[] = [
   {
     icon: Users,
-    title: { ne: "महानगर यातायात पहिले नै जोडिएको छ।", en: "Mahanagar Yatayat is already on board." },
+    title: { ne: "हामी पहिले मयुरका बसहरू एपमा स्पष्ट देखाउँछौं।", en: "We first make Mayur buses clearly visible inside the app." },
     body: {
-      ne: "हामी धेरै यातायातलाई एउटै यात्रु एपमा ल्याउँदैछौं।",
-      en: "We are bringing more operators into one passenger app.",
+      ne: "पछि अरु यातायात जोडिँदा यात्रुले एउटै एपबाट धेरै बस हेर्न सक्छन्।",
+      en: "When more operators join later, riders can use one app to see more buses.",
     },
   },
   {
     icon: Megaphone,
-    title: { ne: "खर्च साना विज्ञापनले धान्छ।", en: "Small ads cover our costs." },
+    title: { ne: "सानो विज्ञापनले सञ्चालन खर्च धान्छ।", en: "Small ads cover the operating cost." },
     body: {
       ne: "एपमा साना विज्ञापन चल्छन्, त्यसैले मयुरले सेटअप वा होस्टिङ शुल्क तिर्नु पर्दैन।",
       en: "Small ads run inside the app, so Mayur does not pay setup or hosting fees.",
@@ -146,10 +146,10 @@ const finalCards: IconCopy[] = [
   },
   {
     icon: CheckCircle2,
-    title: { ne: "नतिजा मयुरलाई।", en: "Mayur gets the benefit." },
+    title: { ne: "मयुरले प्रत्यक्ष फाइदा पाउँछ।", en: "Mayur gets the direct benefit." },
     body: {
-      ne: "दृश्यता, GPS, रिपोर्ट, र यात्रुको भरोसा।",
-      en: "Visibility, GPS, reports, and passenger trust.",
+      ne: "मयुरले बसको दृश्यता, GPS रिपोर्ट, र यात्रुको भरोसा पाउँछ।",
+      en: "Mayur gets bus visibility, GPS reports, and passenger trust.",
     },
   },
 ];
@@ -251,10 +251,10 @@ function AppPreview({ lang }: { lang: Lang }) {
 
         <div className="phone-sheet">
           <div className="sheet-handle" />
-          <div className="phone-sheet-head">
-            <div>
-              <strong>{t({ ne: "नजिकका मयुर बसहरू", en: "Nearby Mayur buses" }, lang)}</strong>
-              <small>{t({ ne: "यात्रुले पर्खिने आधार", en: "Proof for riders to wait" }, lang)}</small>
+            <div className="phone-sheet-head">
+              <div>
+                <strong>{t({ ne: "नजिकका मयुर बसहरू", en: "Nearby Mayur buses" }, lang)}</strong>
+              <small>{t({ ne: "यात्रुले पर्खिने आधार पाउँछन्।", en: "Riders get proof to wait." }, lang)}</small>
             </div>
             <span>{t({ ne: "प्रत्यक्ष", en: "Live" }, lang)}</span>
           </div>
@@ -276,7 +276,7 @@ function AppPreview({ lang }: { lang: Lang }) {
             ))}
           </div>
 
-          <div className="app-ad-card">{t({ ne: "सानो विज्ञापन क्षेत्र", en: "Small ad space" }, lang)}</div>
+          <div className="app-ad-card">{t({ ne: "यहाँ सानो विज्ञापन देखिन्छ।", en: "A small ad appears here." }, lang)}</div>
         </div>
       </div>
     </div>
@@ -380,8 +380,8 @@ export default function Home() {
             </div>
 
             <div className="pilot-proof">
-              <span>{t({ ne: "पहिले नै प्रमाण", en: "Already proven" }, lang)}</span>
-              <strong>{t({ ne: "महानगर यातायात जोडिएको छ", en: "Mahanagar Yatayat is on board" }, lang)}</strong>
+              <span>{t({ ne: "पहिलो पाइलटबाट प्रमाण आउँछ।", en: "The first pilot creates proof." }, lang)}</span>
+              <strong>{t({ ne: "हामी सुरुमा केही बसमा जडान गरेर परिणाम देखाउँछौं।", en: "We install it on a small set of buses first and show the result." }, lang)}</strong>
             </div>
           </motion.div>
 
@@ -395,7 +395,7 @@ export default function Home() {
               <AppPreview lang={lang} />
               <div className="mini-dashboard">
                 <strong>{t({ ne: "यात्रुले बस देख्छन्।", en: "Passengers see the bus." }, lang)}</strong>
-                <p>{t({ ne: "अब पर्खिने कारण छ।", en: "Now they have a reason to wait." }, lang)}</p>
+                <p>{t({ ne: "अब यात्रुसँग पर्खिने कारण हुन्छ।", en: "Now passengers have a reason to wait." }, lang)}</p>
                 <div className="mini-meter">
                   <span />
                 </div>
@@ -493,7 +493,7 @@ export default function Home() {
         <motion.div className="section-heading centered">
           <SectionLabel index={4} lang={lang} />
           <LanguageSwap lang={lang}>
-            <h2>{t({ ne: "खर्च र भरोसाको कुरा स्पष्ट।", en: "The cost and trust are clear." }, lang)}</h2>
+            <h2>{t({ ne: "खर्च र भरोसाको कुरा स्पष्ट छ।", en: "The cost and trust are clear." }, lang)}</h2>
           </LanguageSwap>
         </motion.div>
 
@@ -520,7 +520,7 @@ export default function Home() {
 
       <section className="final-note">
         <Clock3 size={22} />
-        <p>{t({ ne: "अर्को कदम: एउटा सानो पाइलट सुरु गरौं। बाँकी जिम्मा हाम्रो।", en: "Next step: start a small pilot. We take responsibility for the rest." }, lang)}</p>
+        <p>{t({ ne: "अर्को कदमका रूपमा हामी एउटा सानो पाइलट सुरु गर्छौं। त्यसपछि बाँकी कामको जिम्मा हामी लिन्छौं।", en: "As the next step, we start a small pilot. After that, we take responsibility for the remaining work." }, lang)}</p>
       </section>
     </main>
   );
